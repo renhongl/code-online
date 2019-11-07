@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AngularSplitModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, { useHash: true })
   ],
   providers: [],
   bootstrap: [AppComponent]
