@@ -1,6 +1,9 @@
 <div class="container">
-  <div class="split-example" style="height: 100%;">
-    <as-split direction="vertical">
+  <div class="header">
+    
+  </div>
+  <div class="split-con" style="height: calc(100% - 50px);">
+    <as-split direction="vertical" (dragStart)="showIframeHider = true" (dragEnd)="showIframeHider = false">
       <as-split-area size="50">
         <as-split direction="horizontal">
           <as-split-area size="33">
@@ -18,7 +21,10 @@
         </as-split>
       </as-split-area>
       <as-split-area size="50">
-        <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
+        <div>
+          <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
+          <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
+        </div>
       </as-split-area>
     </as-split>
   </div>

@@ -1,27 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularSplitModule } from 'angular-split';
-import { RouterModule, Routes } from '@angular/router';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PenComponent } from './pen/pen.component';
-
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'pen', component: PenComponent },
-];
+import { AngularSplitModule } from 'angular-split';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     PenComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     AngularSplitModule.forRoot(),
-    RouterModule.forRoot(appRoutes, { useHash: true })
   ],
   providers: [],
   bootstrap: [AppComponent]

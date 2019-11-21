@@ -6,7 +6,7 @@ import { interval } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-pen',
   templateUrl: './pen.component.html',
-  styleUrls: ['./pen.component.css']
+  styleUrls: ['./pen.component.scss']
 })
 export class PenComponent implements OnInit {
 
@@ -18,10 +18,12 @@ export class PenComponent implements OnInit {
   htmlEditor: any;
   cssEditor: any;
 
-  @ViewChild('js') jsRef;
-  @ViewChild('preview') previewRef;
-  @ViewChild('html') htmlRef;
-  @ViewChild('css') cssRef;
+  showIframeHider = false;
+
+  @ViewChild('js', {static: true}) jsRef;
+  @ViewChild('preview', {static: true}) previewRef;
+  @ViewChild('html', {static: true}) htmlRef;
+  @ViewChild('css', {static: true}) cssRef;
 
   constructor() { }
 
@@ -29,7 +31,7 @@ export class PenComponent implements OnInit {
     const preview = this.previewRef.nativeElement;
     this.doc = preview.contentDocument;
     this.jsCode = 'console.log("Hello World")';
-    this.htmlCode = '<h1>Hello World</h1>';
+    this.htmlCode = '<div>test</div>';
     this.cssCode = 'h1{color: red}';
     this.initJs();
     this.initHtml();
