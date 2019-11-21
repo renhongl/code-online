@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy, OnInit, ViewChild, ElementRef } fro
 import CodeMirror from 'codemirror';
 import { interval } from 'rxjs';
 
+import 'codemirror/addon/edit/closebrackets.js';
+import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/mode/htmlmixed/htmlmixed.js';
+import 'codemirror/mode/css/css.js';
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-pen',
@@ -18,7 +23,8 @@ export class PenComponent implements OnInit {
   htmlEditor: any;
   cssEditor: any;
 
-  showIframeHider = false;
+  showPreview = true;
+  showIframeHider = true;
 
   @ViewChild('js', {static: true}) jsRef;
   @ViewChild('preview', {static: true}) previewRef;
@@ -28,17 +34,21 @@ export class PenComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    const preview = this.previewRef.nativeElement;
-    this.doc = preview.contentDocument;
+    // this.doc = this.getDoc();
     this.jsCode = 'console.log("Hello World")';
     this.htmlCode = '<div>test</div>';
     this.cssCode = 'h1{color: red}';
     this.initJs();
     this.initHtml();
     this.initCss();
-    this.initPreview();
+    // this.initPreview();
     // this.handleSave();
     this.autoUpdate();
+  }
+
+  getDoc() {
+    // const preview = this.previewRef.nativeElement;
+    return document.querySelector('iframe').contentDocument;
   }
 
   autoUpdate() {
@@ -68,14 +78,30 @@ export class PenComponent implements OnInit {
   initCss() {
     this.cssEditor = CodeMirror(this.cssRef.nativeElement, {
       value: this.cssCode,
-      mode:  'css'
+      mode:  'css',
+      theme: 'material-darker',
+      lineNumbers: true,
+      autoCloseBrackets: true,
     });
   }
 
   initHtml() {
     this.htmlEditor = CodeMirror(this.htmlRef.nativeElement, {
       value: this.htmlCode,
-      mode:  'html'
+      mode:  'htmlmixed',
+      theme: 'material-darker',
+      lineNumbers: true,
+      autoCloseBrackets: true,
+    });
+  }
+
+  initJs() {
+    this.jsEditor = CodeMirror(this.jsRef.nativeElement, {
+      value: this.jsCode,
+      mode:  'javascript',
+      theme: 'material-darker',
+      lineNumbers: true,
+      autoCloseBrackets: true,
     });
   }
 
@@ -87,22 +113,20 @@ export class PenComponent implements OnInit {
   }
 
   initPreview() {
-    this.removeTag('style');
-    this.removeTag('script');
-    const script = document.createElement('script');
-    script.innerHTML = this.jsCode;
-    const style = document.createElement('style');
-    style.innerHTML = this.cssCode;
-    this.doc.head.appendChild(style);
-    this.doc.body.innerHTML = this.htmlCode;
-    this.doc.body.appendChild(script);
+    this.showPreview = false;
+    this.showPreview = true;
+    setTimeout(() => {
+      this.doc = this.getDoc();
+      const script = document.createElement('script');
+      script.innerHTML = this.jsCode;
+      const style = document.createElement('style');
+      style.innerHTML = this.cssCode;
+      this.doc.head.appendChild(style);
+      this.doc.body.innerHTML = this.htmlCode;
+      this.doc.body.appendChild(script);
+    }, 1000);
   }
 
-  initJs() {
-    this.jsEditor = CodeMirror(this.jsRef.nativeElement, {
-      value: this.jsCode,
-      mode:  'javascript'
-    });
-  }
+  
 
 }

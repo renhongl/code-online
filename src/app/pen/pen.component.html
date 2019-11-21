@@ -7,21 +7,30 @@
       <as-split-area size="50">
         <as-split direction="horizontal">
           <as-split-area size="33">
-            <div #html>
+            <div class="code-con">
+              <div class="title">HTML</div>
+              <div #html class="code">
+              </div>
             </div>
           </as-split-area>
           <as-split-area size="33">
-            <div #css>
+            <div class="code-con">
+              <div class="title">CSS</div>
+              <div #css class="code">
+              </div>
             </div>
           </as-split-area>
           <as-split-area size="34">
-            <div #js>
+            <div class="code-con">
+              <div class="title">JS</div>
+              <div #js class="code">
+              </div>
             </div>
           </as-split-area>
         </as-split>
       </as-split-area>
       <as-split-area size="50">
-        <div>
+        <div *ngIf="showPreview">
           <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
           <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
         </div>

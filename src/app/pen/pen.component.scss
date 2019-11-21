@@ -2,6 +2,27 @@
     width: 100%;
     height: 100%;
 
+    .code-con{
+        width: 100%;
+        height: 100%;
+    }
+
+    .code{
+        height: calc(100% - 30px);
+        width: calc(100% - 10px);
+        font-size: 15px;
+        padding: 0 5px;
+        background: #212121;
+    }
+
+    .title {
+        height: 30px;
+        line-height: 30px;
+        color: #fff;
+        padding-left: 10px;
+        background: #313131;
+    }
+
     .as-split-area > div {
         position: relative;
         height: 100%;
@@ -14,6 +35,7 @@
         left: 0;
         width: 100%;
         height: 100%;
+        pointer-events: none;
     }
 
     .header{
@@ -22,8 +44,14 @@
         background: #3e3e3e;
     }
     
-    .as-split-gutter{
-        background: #3e3e3e !important;
+    ::ng-deep .as-split-gutter{
+        background: #696969 !important;
+        // border: 1px solid #212121;
+        box-shadow: 0 0 2px #212121;
+    }
+
+    ::ng-deep .as-split-gutter-icon{
+        background-image: none !important;
     }
 }
 
