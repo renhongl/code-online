@@ -24,7 +24,7 @@ export class PenComponent implements OnInit {
   cssEditor: any;
 
   showPreview = true;
-  showIframeHider = true;
+  showIframeHider = false;
 
   @ViewChild('js', {static: true}) jsRef;
   @ViewChild('preview', {static: true}) previewRef;
