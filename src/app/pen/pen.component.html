@@ -22,7 +22,12 @@
           </as-split-area>
           <as-split-area size="34">
             <div class="code-con">
-              <div class="title">JS</div>
+              <div class="title">
+                <button mat-icon-button (click)="openJSDialog()">
+                  <mat-icon>settings</mat-icon>
+                </button>
+                <span>JS</span>
+              </div>
               <div #js class="code">
               </div>
             </div>

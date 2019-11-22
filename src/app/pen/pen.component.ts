@@ -1,11 +1,27 @@
 import { Component, ChangeDetectionStrategy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import CodeMirror from 'codemirror';
 import { interval } from 'rxjs';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+import { JsDialogComponent } from './js-dialog/js-dialog.component';
+
+import 'codemirror/addon/lint/lint.css';
 
 import 'codemirror/addon/edit/closebrackets.js';
+import 'codemirror/addon/edit/closetag.js';
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/css/css.js';
+
+import 'codemirror/addon/selection/active-line.js';
+import 'codemirror/addon/fold/foldcode.js';
+import 'codemirror/addon/fold/foldgutter.js';
+import 'codemirror/addon/fold/brace-fold.js';
+import 'codemirror/addon/comment/comment.js';
+import 'codemirror/addon/comment/continuecomment.js';
+
+import 'codemirror/addon/lint/lint.js';
+import 'codemirror/addon/lint/javascript-lint.js';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,41 +39,68 @@ export class PenComponent implements OnInit {
   htmlEditor: any;
   cssEditor: any;
 
+  jsChangeTimer: any;
+  htmlChangeTimer: any;
+  cssChangeTimer: any;
+
   showPreview = true;
   showIframeHider = false;
 
   @ViewChild('js', {static: true}) jsRef;
-  @ViewChild('preview', {static: true}) previewRef;
   @ViewChild('html', {static: true}) htmlRef;
   @ViewChild('css', {static: true}) cssRef;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
-    // this.doc = this.getDoc();
-    this.jsCode = 'console.log("Hello World")';
-    this.htmlCode = '<div>test</div>';
-    this.cssCode = 'h1{color: red}';
+    this.jsCode = '';
+    this.htmlCode = '';
+    this.cssCode = '';
     this.initJs();
     this.initHtml();
     this.initCss();
-    // this.initPreview();
     // this.handleSave();
     this.autoUpdate();
   }
 
   getDoc() {
-    // const preview = this.previewRef.nativeElement;
     return document.querySelector('iframe').contentDocument;
   }
 
   autoUpdate() {
-    interval(1000).subscribe(n => {
-      this.jsCode = this.jsEditor.getValue();
-      this.htmlCode = this.htmlEditor.getValue();
-      this.cssCode = this.cssEditor.getValue();
-      this.initPreview();
+    this.cssEditor.on('change', () => {
+      if (this.cssChangeTimer) {
+        clearTimeout(this.cssChangeTimer);
+      }
+      this.cssChangeTimer = setTimeout(() => {
+        this.refresh();
+      }, 2000);
     });
+
+    this.htmlEditor.on('change', () => {
+      if (this.htmlChangeTimer) {
+        clearTimeout(this.htmlChangeTimer);
+      }
+      this.htmlChangeTimer = setTimeout(() => {
+        this.refresh();
+      }, 2000);
+    });
+
+    this.jsEditor.on('change', () => {
+      if (this.jsChangeTimer) {
+        clearTimeout(this.jsChangeTimer);
+      }
+      this.jsChangeTimer = setTimeout(() => {
+        this.refresh();
+      }, 2000);
+    });
+  }
+
+  refresh() {
+    this.jsCode = this.jsEditor.getValue();
+    this.htmlCode = this.htmlEditor.getValue();
+    this.cssCode = this.cssEditor.getValue();
+    this.initPreview();
   }
 
   handleSave() {
@@ -82,6 +125,7 @@ export class PenComponent implements OnInit {
       theme: 'material-darker',
       lineNumbers: true,
       autoCloseBrackets: true,
+      styleActiveLine: false,
     });
   }
 
@@ -92,6 +136,8 @@ export class PenComponent implements OnInit {
       theme: 'material-darker',
       lineNumbers: true,
       autoCloseBrackets: true,
+      styleActiveLine: false,
+      autoCloseTags: true,
     });
   }
 
@@ -102,7 +148,9 @@ export class PenComponent implements OnInit {
       theme: 'material-darker',
       lineNumbers: true,
       autoCloseBrackets: true,
+      styleActiveLine: false,
     });
+    this.jsEditor.foldCode(CodeMirror.Pos(0, 0));
   }
 
   removeTag(tagName) {
@@ -118,7 +166,8 @@ export class PenComponent implements OnInit {
     setTimeout(() => {
       this.doc = this.getDoc();
       const script = document.createElement('script');
-      script.innerHTML = this.jsCode;
+      const jsCode = `(function() { "use strict"; ${this.jsCode}}())`;
+      script.innerHTML = jsCode;
       const style = document.createElement('style');
       style.innerHTML = this.cssCode;
       this.doc.head.appendChild(style);
@@ -127,6 +176,16 @@ export class PenComponent implements OnInit {
     }, 1000);
   }
 
-  
+  openJSDialog() {
+    const dialogRef = this.dialog.open(JsDialogComponent, {
+      width: '40%',
+      height: '70%',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
 
 }

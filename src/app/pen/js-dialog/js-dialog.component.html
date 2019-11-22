@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Add Javascript Library</h1>
+<div mat-dialog-content>
+  <mat-form-field class="example-full-width" *ngFor="let item of list">
+    <input matInput [value]="item">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <input matInput value="">
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button (click)="addMore()">Add More</button>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Close</button>
+</div>
