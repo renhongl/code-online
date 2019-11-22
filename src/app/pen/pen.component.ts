@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import CodeMirror from 'codemirror';
-import { interval } from 'rxjs';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+// import { interval } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 import { JsDialogComponent } from './js-dialog/js-dialog.component';
 
@@ -43,14 +43,18 @@ export class PenComponent implements OnInit {
   htmlChangeTimer: any;
   cssChangeTimer: any;
 
+  jsLibrary: Array<string>;
+
   showPreview = true;
   showIframeHider = false;
 
-  @ViewChild('js', {static: true}) jsRef;
-  @ViewChild('html', {static: true}) htmlRef;
-  @ViewChild('css', {static: true}) cssRef;
+  @ViewChild('js', { static: true }) jsRef;
+  @ViewChild('html', { static: true }) htmlRef;
+  @ViewChild('css', { static: true }) cssRef;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+    this.jsLibrary = ['http://localhost:4200/code-online/', 'http://localhost:4200/code-online/'];
+  }
 
   ngOnInit() {
     this.jsCode = '';
@@ -105,7 +109,7 @@ export class PenComponent implements OnInit {
 
   handleSave() {
     document.body.addEventListener('keypress', (event) => {
-      if (!(event.which === 115 && event.ctrlKey) && !(event.which === 19)){
+      if (!(event.which === 115 && event.ctrlKey) && !(event.which === 19)) {
         return true;
       };
       this.jsCode = this.jsEditor.getValue();
@@ -121,7 +125,7 @@ export class PenComponent implements OnInit {
   initCss() {
     this.cssEditor = CodeMirror(this.cssRef.nativeElement, {
       value: this.cssCode,
-      mode:  'css',
+      mode: 'css',
       theme: 'material-darker',
       lineNumbers: true,
       autoCloseBrackets: true,
@@ -132,7 +136,7 @@ export class PenComponent implements OnInit {
   initHtml() {
     this.htmlEditor = CodeMirror(this.htmlRef.nativeElement, {
       value: this.htmlCode,
-      mode:  'htmlmixed',
+      mode: 'htmlmixed',
       theme: 'material-darker',
       lineNumbers: true,
       autoCloseBrackets: true,
@@ -144,7 +148,7 @@ export class PenComponent implements OnInit {
   initJs() {
     this.jsEditor = CodeMirror(this.jsRef.nativeElement, {
       value: this.jsCode,
-      mode:  'javascript',
+      mode: 'javascript',
       theme: 'material-darker',
       lineNumbers: true,
       autoCloseBrackets: true,
@@ -156,7 +160,7 @@ export class PenComponent implements OnInit {
   removeTag(tagName) {
     const hs = this.doc.getElementsByTagName(tagName);
     for (let i = 0, max = hs.length; i < max; i++) {
-        hs[i].parentNode.removeChild(hs[i]);
+      hs[i].parentNode.removeChild(hs[i]);
     }
   }
 
@@ -165,13 +169,18 @@ export class PenComponent implements OnInit {
     this.showPreview = true;
     setTimeout(() => {
       this.doc = this.getDoc();
+      this.doc.body.innerHTML = this.htmlCode;
+      this.jsLibrary.forEach(item => {
+        const s = document.createElement('script');
+        s.setAttribute('src', item);
+        this.doc.body.appendChild(s);
+      });
       const script = document.createElement('script');
       const jsCode = `(function() { "use strict"; ${this.jsCode}}())`;
       script.innerHTML = jsCode;
       const style = document.createElement('style');
       style.innerHTML = this.cssCode;
       this.doc.head.appendChild(style);
-      this.doc.body.innerHTML = this.htmlCode;
       this.doc.body.appendChild(script);
     }, 1000);
   }
@@ -180,11 +189,12 @@ export class PenComponent implements OnInit {
     const dialogRef = this.dialog.open(JsDialogComponent, {
       width: '40%',
       height: '70%',
-      data: {}
+      data: {jsLibrary: this.jsLibrary}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      this.jsLibrary = result.jsLibrary;
+      this.refresh();
     });
   }
 

@@ -1,15 +1,23 @@
-<h1 mat-dialog-title>Add Javascript Library</h1>
-<div mat-dialog-content>
-  <mat-form-field class="example-full-width" *ngFor="let item of list">
-    <input matInput [value]="item">
-  </mat-form-field>
+<h1 mat-dialog-title>Add Javascript Library <button class="close-btn" mat-icon-button (click)="onClose()"><mat-icon>close</mat-icon></button></h1>
+<div class="search-con">
   <mat-form-field class="example-full-width">
-    <input matInput value="">
+    <input matInput [(ngModel)]="searchWord">
   </mat-form-field>
-  <div mat-dialog-actions>
-    <button mat-button (click)="addMore()">Add More</button>
+  <button mat-icon-button (click)="search()" class="path-search">
+    <mat-icon>search</mat-icon>
+  </button>
+  <div class="search-result" *ngIf="searchResult && searchResult.length > 0">
+      <div *ngFor="let item of searchResult" (click)="add(item)">{{item}}</div>
   </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onClose()">Close</button>
+<div mat-dialog-content>
+  <div *ngFor="let item of list; let i = index">
+    <mat-form-field class="example-full-width">
+      <input matInput [value]="item" disabled>
+    </mat-form-field>
+    <button mat-icon-button (click)="remove(i)" class="path-action">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 </div>
+
