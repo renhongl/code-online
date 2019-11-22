@@ -1,23 +1,43 @@
-<h1 mat-dialog-title>Add Javascript Library <button class="close-btn" mat-icon-button (click)="onClose()"><mat-icon>close</mat-icon></button></h1>
+<h1 mat-dialog-title>Add Javascript Library <button class="close-btn" color="primary" mat-button
+    (click)="onClose()">Save & Close</button></h1>
+<mat-form-field class="example-full-width">
+  <mat-label>JavaScript Preprocessor</mat-label>
+  <mat-select [(value)]="mode">
+    <mat-option value="None">
+      None
+    </mat-option>
+    <mat-option value="Babel">
+      Babel
+    </mat-option>
+    <mat-option value="TypeSript">
+      TypeSript
+    </mat-option>
+    <mat-option value="CoffeeScript">
+      CoffeeScript
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 <div class="search-con">
   <mat-form-field class="example-full-width">
-    <input matInput [(ngModel)]="searchWord">
+    <input matInput [(ngModel)]="searchWord" (input)="search()">
   </mat-form-field>
   <button mat-icon-button (click)="search()" class="path-search">
     <mat-icon>search</mat-icon>
   </button>
   <div class="search-result" *ngIf="searchResult && searchResult.length > 0">
-      <div *ngFor="let item of searchResult" (click)="add(item)">{{item}}</div>
+    <div class="one-result" *ngFor="let item of searchResult" (click)="add(item.latest)">
+      <span class="name">{{item.name}}</span>
+      <span class="desc">{{item.description}}</span>
+    </div>
   </div>
 </div>
 <div mat-dialog-content>
   <div *ngFor="let item of list; let i = index">
     <mat-form-field class="example-full-width">
-      <input matInput [value]="item" disabled>
+      <input matInput [value]="item" disabled class="path-view">
     </mat-form-field>
     <button mat-icon-button (click)="remove(i)" class="path-action">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
 </div>
-

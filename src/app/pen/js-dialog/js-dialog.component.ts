@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PenComponent } from '../pen.component';
-
+import { PenService } from '../pen.service';
 
 @Component({
   selector: 'app-js-dialog',
@@ -11,23 +11,35 @@ import { PenComponent } from '../pen.component';
 export class JsDialogComponent implements OnInit {
 
   list: Array<string>;
-  searchResult: Array<string>;
+  searchResult: any;
+  searchWord: string;
+  timer: any;
+  mode: string;
 
   constructor(
     public dialogRef: MatDialogRef<PenComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) {
+    @Inject(MAT_DIALOG_DATA) public data,
+    private penSer: PenService) {
     }
 
   ngOnInit() {
     this.list = this.data.jsLibrary;
+    this.mode = this.data.mode;
   }
 
   onClose(): void {
-    this.dialogRef.close({ jsLibrary: this.list });
+    this.dialogRef.close({ jsLibrary: this.list, mode: this.mode });
   }
 
   search() {
-    this.searchResult = ['https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js'];
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.timer = setTimeout(() => {
+      this.penSer.searchPath(this.searchWord).subscribe(data => {
+        this.searchResult = data['results'];
+      });
+    }, 1000);
   }
 
   add(value) {

@@ -12,6 +12,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { JsDialogComponent } from './pen/js-dialog/js-dialog.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule,
     MatInputModule,
     FormsModule,
+    HttpClientModule,
+    MatSelectModule,
   ],
   entryComponents: [
     JsDialogComponent

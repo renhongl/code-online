@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { JsDialogComponent } from './js-dialog/js-dialog.component';
 
+
 import 'codemirror/addon/lint/lint.css';
 
 import 'codemirror/addon/edit/closebrackets.js';
@@ -48,12 +49,14 @@ export class PenComponent implements OnInit {
   showPreview = true;
   showIframeHider = false;
 
+  mode = 'None';
+
   @ViewChild('js', { static: true }) jsRef;
   @ViewChild('html', { static: true }) htmlRef;
   @ViewChild('css', { static: true }) cssRef;
 
   constructor(public dialog: MatDialog) {
-    this.jsLibrary = ['http://localhost:4200/code-online/', 'http://localhost:4200/code-online/'];
+    this.jsLibrary = [];
   }
 
   ngOnInit() {
@@ -164,11 +167,22 @@ export class PenComponent implements OnInit {
     }
   }
 
+  getType() {
+    const typeMapping = {
+      None: 'text/javascript',
+      Babel: 'text/jsx',
+      TypeScript: 'text/javascript',
+      CoffeeScript: 'text/javascript',
+    };
+    return typeMapping[this.mode];
+  }
+
   initPreview() {
     this.showPreview = false;
     this.showPreview = true;
     setTimeout(() => {
       this.doc = this.getDoc();
+      this.removeTag('style');
       this.doc.body.innerHTML = this.htmlCode;
       this.jsLibrary.forEach(item => {
         const s = document.createElement('script');
@@ -176,7 +190,8 @@ export class PenComponent implements OnInit {
         this.doc.body.appendChild(s);
       });
       const script = document.createElement('script');
-      const jsCode = `(function() { "use strict"; ${this.jsCode}}())`;
+      script.setAttribute('type', this.getType());
+      const jsCode = this.jsCode;
       script.innerHTML = jsCode;
       const style = document.createElement('style');
       style.innerHTML = this.cssCode;
@@ -189,11 +204,12 @@ export class PenComponent implements OnInit {
     const dialogRef = this.dialog.open(JsDialogComponent, {
       width: '40%',
       height: '70%',
-      data: {jsLibrary: this.jsLibrary}
+      data: {jsLibrary: this.jsLibrary, mode: this.mode}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.jsLibrary = result.jsLibrary;
+      this.jsLibrary = result.jsLibrary || [];
+      this.mode = result.mode;
       this.refresh();
     });
   }

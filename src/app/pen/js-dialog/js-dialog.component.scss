@@ -10,14 +10,42 @@
     position: relative;
 }
 
+.path-view{
+    font-size: 12px;
+    color: gray;
+}
+
 .search-result {
     position: absolute;
-    background: #212121;
+    background: #4c4a4a;
     width: 100%;
-    height: 400px;
     z-index: 100;
     color: #fff;
-    top: 49px;
+    top: 44px;
+    border-radius: 5px;
+
+    .one-result{
+        padding: 5px 10px;
+        border-bottom: 1px solid gray;
+        cursor: pointer;
+
+        &:hover{
+            background: #353535;
+        }
+
+        span.name {
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            font-size: 17px;
+        }
+
+        span.desc {
+            height: 20px;
+            font-size: 12px;
+            color: gray;
+        }
+    }
 }
 
 .mat-dialog-content{
