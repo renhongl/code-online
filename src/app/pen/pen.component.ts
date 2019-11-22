@@ -170,11 +170,17 @@ export class PenComponent implements OnInit {
   getType() {
     const typeMapping = {
       None: 'text/javascript',
-      Babel: 'text/jsx',
+      Babel: 'text/babel',
       TypeScript: 'text/javascript',
       CoffeeScript: 'text/javascript',
     };
     return typeMapping[this.mode];
+  }
+
+  writeScript() {
+    return this.jsLibrary.map(item => {
+      return `<script src="${item}"></script>`;
+    });
   }
 
   initPreview() {
@@ -182,21 +188,44 @@ export class PenComponent implements OnInit {
     this.showPreview = true;
     setTimeout(() => {
       this.doc = this.getDoc();
-      this.removeTag('style');
-      this.doc.body.innerHTML = this.htmlCode;
-      this.jsLibrary.forEach(item => {
-        const s = document.createElement('script');
-        s.setAttribute('src', item);
-        this.doc.body.appendChild(s);
-      });
-      const script = document.createElement('script');
-      script.setAttribute('type', this.getType());
-      const jsCode = this.jsCode;
-      script.innerHTML = jsCode;
-      const style = document.createElement('style');
-      style.innerHTML = this.cssCode;
-      this.doc.head.appendChild(style);
-      this.doc.body.appendChild(script);
+      this.doc.open();
+      this.doc.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <meta charset="UTF-8" />
+      <title>Hello React!</title>
+      <style>${this.cssCode}</style>
+      </head>
+      <body>
+      ${this.htmlCode}
+      ${this.writeScript().join(',')}
+      <script type="${this.getType()}">
+        ${this.jsCode}
+      </script>
+      </body>
+      </html>
+      `);
+
+      // this.removeTag('style');
+      // const m = document.createElement('meta');
+      // m.setAttribute('charset', 'UTF-8');
+      // // this.doc.head.appendChild(m);
+      // this.doc.body.innerHTML = this.htmlCode;
+      // this.jsLibrary.forEach(item => {
+      //   const s = document.createElement('script');
+      //   s.setAttribute('src', item);
+      //   this.doc.body.appendChild(s);
+      // });
+      // const script = document.createElement('script');
+      // script.setAttribute('type', this.getType());
+      // const jsCode = this.jsCode;
+      // script.innerHTML = jsCode;
+      // const style = document.createElement('style');
+      // style.innerHTML = this.cssCode;
+      // this.doc.head.appendChild(style);
+      // this.doc.body.appendChild(script);
+      this.doc.close();
     }, 1000);
   }
 
