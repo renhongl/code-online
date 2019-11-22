@@ -45,6 +45,7 @@ export class JsDialogComponent implements OnInit {
   add(value) {
     this.list.push(value);
     this.searchResult = [];
+    this.searchWord = '';
   }
 
   remove(i) {

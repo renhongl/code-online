@@ -194,37 +194,18 @@ export class PenComponent implements OnInit {
       <html>
       <head>
       <meta charset="UTF-8" />
-      <title>Hello React!</title>
+      <title>Untitled</title>
       <style>${this.cssCode}</style>
       </head>
       <body>
       ${this.htmlCode}
-      ${this.writeScript().join(',')}
+      ${this.writeScript().join(',').replace(/,/ig, '')}
       <script type="${this.getType()}">
         ${this.jsCode}
       </script>
       </body>
       </html>
       `);
-
-      // this.removeTag('style');
-      // const m = document.createElement('meta');
-      // m.setAttribute('charset', 'UTF-8');
-      // // this.doc.head.appendChild(m);
-      // this.doc.body.innerHTML = this.htmlCode;
-      // this.jsLibrary.forEach(item => {
-      //   const s = document.createElement('script');
-      //   s.setAttribute('src', item);
-      //   this.doc.body.appendChild(s);
-      // });
-      // const script = document.createElement('script');
-      // script.setAttribute('type', this.getType());
-      // const jsCode = this.jsCode;
-      // script.innerHTML = jsCode;
-      // const style = document.createElement('style');
-      // style.innerHTML = this.cssCode;
-      // this.doc.head.appendChild(style);
-      // this.doc.body.appendChild(script);
       this.doc.close();
     }, 1000);
   }
@@ -233,7 +214,7 @@ export class PenComponent implements OnInit {
     const dialogRef = this.dialog.open(JsDialogComponent, {
       width: '40%',
       height: '70%',
-      data: {jsLibrary: this.jsLibrary, mode: this.mode}
+      data: { jsLibrary: this.jsLibrary, mode: this.mode }
     });
 
     dialogRef.afterClosed().subscribe(result => {
