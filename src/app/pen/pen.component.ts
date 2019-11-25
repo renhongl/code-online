@@ -47,6 +47,7 @@ export class PenComponent implements OnInit {
   changeTitle: boolean;
   titleWord: string;
   cssLibrary: Array<string>;
+  downloadUrl: string;
 
   // showPreview = true;
   showIframeHider = false;
@@ -73,6 +74,7 @@ export class PenComponent implements OnInit {
     this.cssMode = localStorage.getItem('code-online-cssmode') || 'None';
     this.jsLibrary = JSON.parse(localStorage.getItem('code-online-jsLib')) || [];
     this.cssLibrary = JSON.parse(localStorage.getItem('code-online-cssLib')) || [];
+    this.currentView = localStorage.getItem('code-online-view-type') || 'top';
     setTimeout(() => {
       this.updateDocumentTitle();
       this.initJs();
@@ -85,7 +87,7 @@ export class PenComponent implements OnInit {
   }
 
   goToGit() {
-    window.open('https://github.com/renhongl', '_blank');
+    window.open('https://github.com/renhongl/code-online', '_blank');
   }
 
   openNewTab() {
@@ -94,6 +96,7 @@ export class PenComponent implements OnInit {
   
   changeView(value) {
     this.currentView = value;
+    localStorage.setItem('code-online-view-type', value);
     setTimeout(() => {
       this.initJs();
       this.initHtml();
@@ -331,6 +334,19 @@ export class PenComponent implements OnInit {
       localStorage.setItem('code-online-cssLib', JSON.stringify(this.cssLibrary));
       localStorage.setItem('code-online-cssmode', this.cssMode);
     });
+  }
+
+  downloadSource() {
+    const element = document.createElement('a');
+    element.setAttribute(
+      'href',
+      'data:text/plain;charset=utf-8,' + encodeURIComponent(localStorage.getItem('code-online-view'))
+    );
+    element.setAttribute('download', this.titleWord + '.html');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   }
 
 }

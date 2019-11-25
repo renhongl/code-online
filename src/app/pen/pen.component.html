@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-      <img class="logo" width="20px" height="20px" src="/code-online/assets/images/logo.png" alt="" />
+    <img class="logo" width="20px" height="20px" src="/code-online/assets/images/logo.png" alt="" />
     <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 8 + 'px'}">
       <input #title matInput [(ngModel)]="titleWord" [disabled]="!changeTitle" (blur)="disableTitle()"
         (input)="updateTitle()">
@@ -13,19 +13,26 @@
       <mat-icon>remove_red_eye</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="changeView('top')">
+      <button mat-menu-item (click)="changeView('top')" [disabled]="currentView === 'top'">
         <mat-icon class="top">table_chart</mat-icon>
+        <span>Top to Bottom</span>
       </button>
-      <button mat-menu-item (click)="changeView('left')">
+      <button mat-menu-item (click)="changeView('left')" [disabled]="currentView === 'left'">
         <mat-icon class="left">table_chart</mat-icon>
+        <span>Left to Right</span>
       </button>
-      <button mat-menu-item (click)="changeView('right')">
+      <button mat-menu-item (click)="changeView('right')" [disabled]="currentView === 'right'">
         <mat-icon class="right">table_chart</mat-icon>
+        <span>Right to Left</span>
       </button>
     </mat-menu>
 
     <button mat-icon-button class="play" (click)="openNewTab()" matTooltip="View Full Screen">
       <mat-icon>personal_video</mat-icon>
+    </button>
+
+    <button mat-icon-button class="download" (click)="downloadSource()" matTooltip="Download Source Code">
+      <mat-icon>cloud_download</mat-icon>
     </button>
 
     <button mat-icon-button class="git" matTooltip="View Git Hub" (click)="goToGit()">
@@ -47,10 +54,10 @@
           <as-split-area size="33">
             <div class="code-con">
               <div class="title">
-                  <button mat-icon-button (click)="openCssDialog()">
-                      <mat-icon>settings</mat-icon>
-                    </button>
-                    <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
+                <button mat-icon-button (click)="openCssDialog()">
+                  <mat-icon>settings</mat-icon>
+                </button>
+                <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
               </div>
               <div #css class="code">
               </div>
