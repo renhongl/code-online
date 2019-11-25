@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { JsDialogComponent } from './pen/js-dialog/js-dialog.component';
+import { CssDialogComponent } from './pen/css-dialog/css-dialog.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
     AppComponent,
     PenComponent,
     JsDialogComponent,
-    FullScreenComponent
+    FullScreenComponent,
+    CssDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     MatTooltipModule,
   ],
   entryComponents: [
-    JsDialogComponent
+    JsDialogComponent,
+    CssDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

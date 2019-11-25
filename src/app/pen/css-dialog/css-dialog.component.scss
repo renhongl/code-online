@@ -1,0 +1,61 @@
+.example-full-width {
+  width: calc(100% - 40px);
+}
+
+.close-btn{
+    float: right;
+}
+
+.search-con{
+    position: relative;
+}
+
+.path-view{
+    font-size: 12px;
+    color: gray;
+}
+
+.search-result {
+    position: absolute;
+    background: #4c4a4a;
+    width: 100%;
+    z-index: 100;
+    color: #fff;
+    top: 44px;
+    border-radius: 5px;
+
+    .one-result{
+        padding: 5px 10px;
+        border-bottom: 1px solid gray;
+        cursor: pointer;
+
+        &:hover{
+            background: #353535;
+        }
+
+        span.name {
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            font-size: 17px;
+        }
+
+        span.desc {
+            height: 20px;
+            font-size: 12px;
+            color: gray;
+        }
+    }
+}
+
+.mat-dialog-content{
+    overflow: hidden !important;
+
+    // .path-action{
+    //     display: inline-block;
+    //     width: 30px;
+    //     height: 30px;
+    //     line-height: 30px;
+    // }
+}
+

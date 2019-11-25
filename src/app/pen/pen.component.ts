@@ -4,6 +4,7 @@ import CodeMirror from 'codemirror';
 import { MatDialog } from '@angular/material/dialog';
 
 import { JsDialogComponent } from './js-dialog/js-dialog.component';
+import { CssDialogComponent } from './css-dialog/css-dialog.component';
 
 
 import 'codemirror/addon/lint/lint.css';
@@ -45,11 +46,13 @@ export class PenComponent implements OnInit {
   jsLibrary: Array<string>;
   changeTitle: boolean;
   titleWord: string;
+  cssLibrary: Array<string>;
 
   // showPreview = true;
   showIframeHider = false;
   mode = 'None';
   currentView = 'top';
+  cssMode = 'None';
 
   @ViewChild('js', { static: false }) jsRef;
   @ViewChild('html', { static: false }) htmlRef;
@@ -67,7 +70,9 @@ export class PenComponent implements OnInit {
     this.htmlCode = localStorage.getItem('code-online-html') || '';
     this.cssCode = localStorage.getItem('code-online-css') || '';
     this.mode = localStorage.getItem('code-online-mode') || 'None';
+    this.cssMode = localStorage.getItem('code-online-cssmode') || 'None';
     this.jsLibrary = JSON.parse(localStorage.getItem('code-online-jsLib')) || [];
+    this.cssLibrary = JSON.parse(localStorage.getItem('code-online-cssLib')) || [];
     setTimeout(() => {
       this.updateDocumentTitle();
       this.initJs();
@@ -77,6 +82,10 @@ export class PenComponent implements OnInit {
       this.autoUpdate();
     }, 500);
     // this.handleSave();
+  }
+
+  goToGit() {
+    window.open('https://github.com/renhongl', '_blank');
   }
 
   openNewTab() {
@@ -244,6 +253,12 @@ export class PenComponent implements OnInit {
     document.querySelector('.preview-parent-' + this.currentView).prepend(curr);
   }
 
+  writeLinks() {
+    return this.cssLibrary.map(item => {
+      return `<link href="${item}" rel="stylesheet"></link>`;
+    });
+  }
+
   initPreview() {
     // this.showPreview = false;
     // this.showPreview = true;
@@ -260,6 +275,7 @@ export class PenComponent implements OnInit {
           <head>
             <meta charset="UTF-8" />
             <title>Untitled</title>
+            ${this.writeLinks().join(',').replace(/,/ig, '')}
             <style>${this.cssCode}</style>
           </head>
           <body>
@@ -296,6 +312,24 @@ export class PenComponent implements OnInit {
       this.cd.detectChanges();
       localStorage.setItem('code-online-jsLib', JSON.stringify(this.jsLibrary));
       localStorage.setItem('code-online-mode', this.mode);
+    });
+  }
+
+  openCssDialog() {
+    const dialogRef = this.dialog.open(CssDialogComponent, {
+      width: '40%',
+      height: '70%',
+      data: { cssLibrary: this.cssLibrary, cssMode: this.cssMode },
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cssLibrary = result.cssLibrary || [];
+      this.cssMode = result.mode;
+      this.refresh();
+      this.cd.detectChanges();
+      localStorage.setItem('code-online-cssLib', JSON.stringify(this.cssLibrary));
+      localStorage.setItem('code-online-cssmode', this.cssMode);
     });
   }
 

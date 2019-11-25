@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
-    <mat-icon class="logo">home</mat-icon>
-    <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 10 + 'px'}">
+      <img class="logo" width="20px" height="20px" src="/code-online/assets/images/logo.png" alt="" />
+    <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 8 + 'px'}">
       <input #title matInput [(ngModel)]="titleWord" [disabled]="!changeTitle" (blur)="disableTitle()"
         (input)="updateTitle()">
     </mat-form-field>
@@ -28,7 +28,7 @@
       <mat-icon>personal_video</mat-icon>
     </button>
 
-    <button mat-icon-button class="git" matTooltip="View Git Hub">
+    <button mat-icon-button class="git" matTooltip="View Git Hub" (click)="goToGit()">
       <img width="20px" height="20px" src="/code-online/assets/images/git_logo.png" alt="" />
     </button>
   </div>
@@ -46,7 +46,12 @@
           </as-split-area>
           <as-split-area size="33">
             <div class="code-con">
-              <div class="title">CSS</div>
+              <div class="title">
+                  <button mat-icon-button (click)="openCssDialog()">
+                      <mat-icon>settings</mat-icon>
+                    </button>
+                    <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
+              </div>
               <div #css class="code">
               </div>
             </div>

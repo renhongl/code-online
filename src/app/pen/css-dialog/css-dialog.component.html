@@ -1,19 +1,25 @@
-<h1 mat-dialog-title>Add Javascript Library <button class="close-btn" color="primary" mat-button
+<h1 mat-dialog-title>Add CSS Library <button class="close-btn" color="primary" mat-button
     (click)="onClose()">Save & Close</button></h1>
-<mat-form-field class="example-full-width">
-  <mat-label>JavaScript Preprocessor</mat-label>
-  <mat-select [(value)]="mode">
+<!-- <mat-form-field class="example-full-width">
+  <mat-label>CSS Preprocessor</mat-label>
+  <mat-select [(value)]="cssMode">
     <mat-option value="None">
       None
     </mat-option>
-    <mat-option value="Babel">
-      Babel
+    <mat-option value="Less">
+      Less
+    </mat-option>
+    <mat-option value="Scss">
+      Scss
+    </mat-option>
+    <mat-option value="PostCSS">
+      PostCSS
     </mat-option>
   </mat-select>
-</mat-form-field>
+</mat-form-field> -->
 <div class="search-con">
   <mat-form-field class="example-full-width">
-    <input matInput [(ngModel)]="searchWord" (input)="search()" placeholder="Search JS Files">
+    <input matInput [(ngModel)]="searchWord" (input)="search()" placeholder="Search CSS Files">
   </mat-form-field>
   <button mat-icon-button (click)="search()" class="path-search">
     <mat-icon>search</mat-icon>
