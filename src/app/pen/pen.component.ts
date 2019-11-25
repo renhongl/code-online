@@ -44,11 +44,11 @@ export class PenComponent implements OnInit {
   cssChangeTimer: any;
   jsLibrary: Array<string>;
   changeTitle: boolean;
+  titleWord: string;
 
-  showPreview = true;
+  // showPreview = true;
   showIframeHider = false;
   mode = 'None';
-  titleWord = 'Untitled';
   currentView = 'top';
 
   @ViewChild('js', { static: false }) jsRef;
@@ -59,14 +59,17 @@ export class PenComponent implements OnInit {
   @ViewChild('title', { static: true }) titleRef;
 
   constructor(public dialog: MatDialog, private cd: ChangeDetectorRef) {
-    this.jsLibrary = [];
   }
 
   ngOnInit() {
+    this.titleWord = localStorage.getItem('code-online-title') || 'Untitled';
     this.jsCode = localStorage.getItem('code-online-js') || '';
     this.htmlCode = localStorage.getItem('code-online-html') || '';
     this.cssCode = localStorage.getItem('code-online-css') || '';
+    this.mode = localStorage.getItem('code-online-mode') || 'None';
+    this.jsLibrary = JSON.parse(localStorage.getItem('code-online-jsLib')) || [];
     setTimeout(() => {
+      this.updateDocumentTitle();
       this.initJs();
       this.initHtml();
       this.initCss();
@@ -89,6 +92,15 @@ export class PenComponent implements OnInit {
       this.refresh();
       this.autoUpdate();
     }, 500);
+  }
+
+  updateTitle() {
+    localStorage.setItem('code-online-title', this.titleWord);
+    this.updateDocumentTitle();
+  }
+
+  updateDocumentTitle() {
+    document.title = this.titleWord;
   }
 
   disableTitle() {
@@ -215,11 +227,33 @@ export class PenComponent implements OnInit {
     });
   }
 
+  getNewIframe() {
+    const pre = document.getElementById('previewIframe-' + this.currentView);
+    if (!this.jsCode || this.jsCode.indexOf('setInterval') === -1 &&
+       this.jsCode.indexOf('setTimeout') === -1 && this.jsCode.indexOf('requestAnimationFrame') === -1) {
+      return pre;
+    }
+    if (pre) {
+      document.querySelector('.preview-parent-' + this.currentView).removeChild(pre);
+    }
+    const curr = document.createElement('iframe');
+    curr.setAttribute('id', 'previewIframe-' + this.currentView);
+    curr.setAttribute('width', '100%');
+    curr.setAttribute('height', '100%');
+    curr.setAttribute('frameborder', '0');
+    document.querySelector('.preview-parent-' + this.currentView).prepend(curr);
+  }
+
   initPreview() {
-    this.showPreview = false;
-    this.showPreview = true;
+    // this.showPreview = false;
+    // this.showPreview = true;
+    this.doc = this.getNewIframe();
     setTimeout(() => {
       this.doc = this.getDoc();
+      this.doc.location.reload();
+      this.doc.open();
+      this.doc.write('');
+      this.doc.close();
       const content = `
         <!DOCTYPE html>
         <html>
@@ -260,6 +294,8 @@ export class PenComponent implements OnInit {
       this.mode = result.mode;
       this.refresh();
       this.cd.detectChanges();
+      localStorage.setItem('code-online-jsLib', JSON.stringify(this.jsLibrary));
+      localStorage.setItem('code-online-mode', this.mode);
     });
   }
 

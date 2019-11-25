@@ -1,14 +1,15 @@
 <div class="container">
   <div class="header">
     <mat-icon class="logo">home</mat-icon>
-    <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 7 + 'px'}">
-      <input #title matInput [(ngModel)]="titleWord" [disabled]="!changeTitle" (blur)="disableTitle()">
+    <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 10 + 'px'}">
+      <input #title matInput [(ngModel)]="titleWord" [disabled]="!changeTitle" (blur)="disableTitle()"
+        (input)="updateTitle()">
     </mat-form-field>
     <button *ngIf="!changeTitle" mat-icon-button class="edit" (click)="toggleTitle()">
       <mat-icon>edit</mat-icon>
     </button>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="change-view" title="Change View">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="change-view" matTooltip="Change View">
       <mat-icon>remove_red_eye</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -23,9 +24,13 @@
       </button>
     </mat-menu>
 
-    <button mat-icon-button class="play" (click)="openNewTab()" title="View Full Screen">
-        <mat-icon>airplay</mat-icon>
-      </button>
+    <button mat-icon-button class="play" (click)="openNewTab()" matTooltip="View Full Screen">
+      <mat-icon>personal_video</mat-icon>
+    </button>
+
+    <button mat-icon-button class="git" matTooltip="View Git Hub">
+      <img width="20px" height="20px" src="/code-online/assets/images/git_logo.png" alt="" />
+    </button>
   </div>
 
   <div *ngIf="currentView === 'top'" class="split-con" style="height: calc(100% - 50px);">
@@ -61,8 +66,8 @@
         </as-split>
       </as-split-area>
       <as-split-area size="50">
-        <div *ngIf="showPreview">
-          <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
+        <div class="preview-parent-top">
+          <iframe id="previewIframe-top" frameborder="0" #preview width="100%" height="100%"></iframe>
           <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
         </div>
       </as-split-area>
@@ -102,8 +107,8 @@
         </as-split>
       </as-split-area>
       <as-split-area size="50">
-        <div *ngIf="showPreview">
-          <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
+        <div class="preview-parent-left">
+          <iframe id="previewIframe-left" frameborder="0" #preview width="100%" height="100%"></iframe>
           <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
         </div>
       </as-split-area>
@@ -113,8 +118,8 @@
   <div *ngIf="currentView === 'right'" class="split-con" style="height: calc(100% - 50px);">
     <as-split direction="horizontal" (dragStart)="showIframeHider = true" (dragEnd)="showIframeHider = false">
       <as-split-area size="50">
-        <div *ngIf="showPreview">
-          <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
+        <div class="preview-parent-right">
+          <iframe id="previewIframe-right" frameborder="0" #preview width="100%" height="100%"></iframe>
           <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
         </div>
       </as-split-area>

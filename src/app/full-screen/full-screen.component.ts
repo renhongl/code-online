@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-full-screen',
@@ -8,21 +7,28 @@ import { interval } from 'rxjs';
 })
 export class FullScreenComponent implements OnInit {
 
+  showContent: boolean;
+
   constructor() { }
 
   ngOnInit() {
     this.init();
-    interval(1000).subscribe(() => {
-      this.init();
-    });
+    window.addEventListener('storage', () => {
+      location.reload();
+    }, false);
   }
 
   init() {
-    const doc = document.querySelector('iframe').contentDocument;
-    const content = localStorage.getItem('code-online-view');
-    doc.open();
-    doc.write(content);
-    doc.close();
+    this.showContent = false;
+    this.showContent = true;
+    setTimeout(() => {
+      const doc = document.querySelector('iframe').contentDocument;
+      const content = localStorage.getItem('code-online-view');
+      document.title = localStorage.getItem('code-online-title');
+      doc.open();
+      doc.write(content);
+      doc.close();
+    }, 1000);
   }
 
 }

@@ -17,10 +17,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { Routes, RouterModule } from '@angular/router';
 import { FullScreenComponent } from './full-screen/full-screen.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const appRoutes: Routes = [
   { path: '', component: PenComponent },
-  { path: 'fullScreen',  component: FullScreenComponent },
+  { path: 'fullScreen', component: FullScreenComponent },
 ];
 
 @NgModule({
@@ -33,7 +34,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes, { useHash: true}),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     BrowserAnimationsModule,
     AngularSplitModule.forRoot(),
     MatButtonModule,
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatSelectModule,
     MatMenuModule,
+    MatTooltipModule,
   ],
   entryComponents: [
     JsDialogComponent
