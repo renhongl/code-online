@@ -1,8 +1,34 @@
 <div class="container">
   <div class="header">
-    
+    <mat-icon class="logo">home</mat-icon>
+    <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 7 + 'px'}">
+      <input #title matInput [(ngModel)]="titleWord" [disabled]="!changeTitle" (blur)="disableTitle()">
+    </mat-form-field>
+    <button *ngIf="!changeTitle" mat-icon-button class="edit" (click)="toggleTitle()">
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="change-view" title="Change View">
+      <mat-icon>remove_red_eye</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="changeView('top')">
+        <mat-icon class="top">table_chart</mat-icon>
+      </button>
+      <button mat-menu-item (click)="changeView('left')">
+        <mat-icon class="left">table_chart</mat-icon>
+      </button>
+      <button mat-menu-item (click)="changeView('right')">
+        <mat-icon class="right">table_chart</mat-icon>
+      </button>
+    </mat-menu>
+
+    <button mat-icon-button class="play" (click)="openNewTab()" title="View Full Screen">
+        <mat-icon>airplay</mat-icon>
+      </button>
   </div>
-  <div class="split-con" style="height: calc(100% - 50px);">
+
+  <div *ngIf="currentView === 'top'" class="split-con" style="height: calc(100% - 50px);">
     <as-split direction="vertical" (dragStart)="showIframeHider = true" (dragEnd)="showIframeHider = false">
       <as-split-area size="50">
         <as-split direction="horizontal">
@@ -26,7 +52,7 @@
                 <button mat-icon-button (click)="openJSDialog()">
                   <mat-icon>settings</mat-icon>
                 </button>
-                <span>JS</span>
+                <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
               <div #js class="code">
               </div>
@@ -39,6 +65,88 @@
           <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
           <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
         </div>
+      </as-split-area>
+    </as-split>
+  </div>
+
+  <div *ngIf="currentView === 'left'" class="split-con" style="height: calc(100% - 50px);">
+    <as-split direction="horizontal" (dragStart)="showIframeHider = true" (dragEnd)="showIframeHider = false">
+      <as-split-area size="50">
+        <as-split direction="vertical">
+          <as-split-area size="33">
+            <div class="code-con">
+              <div class="title">HTML</div>
+              <div #html class="code">
+              </div>
+            </div>
+          </as-split-area>
+          <as-split-area size="33">
+            <div class="code-con">
+              <div class="title">CSS</div>
+              <div #css class="code">
+              </div>
+            </div>
+          </as-split-area>
+          <as-split-area size="34">
+            <div class="code-con">
+              <div class="title">
+                <button mat-icon-button (click)="openJSDialog()">
+                  <mat-icon>settings</mat-icon>
+                </button>
+                <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
+              </div>
+              <div #js class="code">
+              </div>
+            </div>
+          </as-split-area>
+        </as-split>
+      </as-split-area>
+      <as-split-area size="50">
+        <div *ngIf="showPreview">
+          <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
+          <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
+        </div>
+      </as-split-area>
+    </as-split>
+  </div>
+
+  <div *ngIf="currentView === 'right'" class="split-con" style="height: calc(100% - 50px);">
+    <as-split direction="horizontal" (dragStart)="showIframeHider = true" (dragEnd)="showIframeHider = false">
+      <as-split-area size="50">
+        <div *ngIf="showPreview">
+          <iframe frameborder="0" #preview width="100%" height="100%"></iframe>
+          <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
+        </div>
+      </as-split-area>
+      <as-split-area size="50">
+        <as-split direction="vertical">
+          <as-split-area size="33">
+            <div class="code-con">
+              <div class="title">HTML</div>
+              <div #html class="code">
+              </div>
+            </div>
+          </as-split-area>
+          <as-split-area size="33">
+            <div class="code-con">
+              <div class="title">CSS</div>
+              <div #css class="code">
+              </div>
+            </div>
+          </as-split-area>
+          <as-split-area size="34">
+            <div class="code-con">
+              <div class="title">
+                <button mat-icon-button (click)="openJSDialog()">
+                  <mat-icon>settings</mat-icon>
+                </button>
+                <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
+              </div>
+              <div #js class="code">
+              </div>
+            </div>
+          </as-split-area>
+        </as-split>
       </as-split-area>
     </as-split>
   </div>

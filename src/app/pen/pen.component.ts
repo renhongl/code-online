@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import CodeMirror from 'codemirror';
 // import { interval } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -39,35 +39,67 @@ export class PenComponent implements OnInit {
   jsEditor: any;
   htmlEditor: any;
   cssEditor: any;
-
   jsChangeTimer: any;
   htmlChangeTimer: any;
   cssChangeTimer: any;
-
   jsLibrary: Array<string>;
+  changeTitle: boolean;
 
   showPreview = true;
   showIframeHider = false;
-
   mode = 'None';
+  titleWord = 'Untitled';
+  currentView = 'top';
 
-  @ViewChild('js', { static: true }) jsRef;
-  @ViewChild('html', { static: true }) htmlRef;
-  @ViewChild('css', { static: true }) cssRef;
+  @ViewChild('js', { static: false }) jsRef;
+  @ViewChild('html', { static: false }) htmlRef;
+  @ViewChild('css', { static: false }) cssRef;
 
-  constructor(public dialog: MatDialog) {
+  @ViewChild('jsTitle', { static: true }) jsTitleRef;
+  @ViewChild('title', { static: true }) titleRef;
+
+  constructor(public dialog: MatDialog, private cd: ChangeDetectorRef) {
     this.jsLibrary = [];
   }
 
   ngOnInit() {
-    this.jsCode = '';
-    this.htmlCode = '';
-    this.cssCode = '';
-    this.initJs();
-    this.initHtml();
-    this.initCss();
+    this.jsCode = localStorage.getItem('code-online-js') || '';
+    this.htmlCode = localStorage.getItem('code-online-html') || '';
+    this.cssCode = localStorage.getItem('code-online-css') || '';
+    setTimeout(() => {
+      this.initJs();
+      this.initHtml();
+      this.initCss();
+      this.refresh();
+      this.autoUpdate();
+    }, 500);
     // this.handleSave();
-    this.autoUpdate();
+  }
+
+  openNewTab() {
+    window.open('/code-online#/fullScreen', '_blank');
+  }
+  
+  changeView(value) {
+    this.currentView = value;
+    setTimeout(() => {
+      this.initJs();
+      this.initHtml();
+      this.initCss();
+      this.refresh();
+      this.autoUpdate();
+    }, 500);
+  }
+
+  disableTitle() {
+    this.changeTitle = false;
+  }
+
+  toggleTitle() {
+    this.changeTitle = !this.changeTitle;
+    if (this.changeTitle) {
+      this.titleRef.nativeElement.focus();
+    }
   }
 
   getDoc() {
@@ -188,25 +220,30 @@ export class PenComponent implements OnInit {
     this.showPreview = true;
     setTimeout(() => {
       this.doc = this.getDoc();
+      const content = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="UTF-8" />
+            <title>Untitled</title>
+            <style>${this.cssCode}</style>
+          </head>
+          <body>
+            ${this.htmlCode}
+            ${this.writeScript().join(',').replace(/,/ig, '')}
+            <script type="${this.getType()}">
+              ${this.jsCode}
+            </script>
+          </body>
+        </html>
+      `;
       this.doc.open();
-      this.doc.write(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-      <meta charset="UTF-8" />
-      <title>Untitled</title>
-      <style>${this.cssCode}</style>
-      </head>
-      <body>
-      ${this.htmlCode}
-      ${this.writeScript().join(',').replace(/,/ig, '')}
-      <script type="${this.getType()}">
-        ${this.jsCode}
-      </script>
-      </body>
-      </html>
-      `);
+      this.doc.write(content);
       this.doc.close();
+      localStorage.setItem('code-online-view', content);
+      localStorage.setItem('code-online-js', this.jsCode);
+      localStorage.setItem('code-online-html', this.htmlCode);
+      localStorage.setItem('code-online-css', this.cssCode);
     }, 1000);
   }
 
@@ -214,13 +251,15 @@ export class PenComponent implements OnInit {
     const dialogRef = this.dialog.open(JsDialogComponent, {
       width: '40%',
       height: '70%',
-      data: { jsLibrary: this.jsLibrary, mode: this.mode }
+      data: { jsLibrary: this.jsLibrary, mode: this.mode },
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.jsLibrary = result.jsLibrary || [];
       this.mode = result.mode;
       this.refresh();
+      this.cd.detectChanges();
     });
   }
 

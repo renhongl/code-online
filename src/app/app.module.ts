@@ -14,16 +14,26 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { Routes, RouterModule } from '@angular/router';
+import { FullScreenComponent } from './full-screen/full-screen.component';
+
+const appRoutes: Routes = [
+  { path: '', component: PenComponent },
+  { path: 'fullScreen',  component: FullScreenComponent },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     PenComponent,
-    JsDialogComponent
+    JsDialogComponent,
+    FullScreenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule.forRoot(appRoutes, { useHash: true}),
     BrowserAnimationsModule,
     AngularSplitModule.forRoot(),
     MatButtonModule,
@@ -33,6 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     HttpClientModule,
     MatSelectModule,
+    MatMenuModule,
   ],
   entryComponents: [
     JsDialogComponent
