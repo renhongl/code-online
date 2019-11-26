@@ -302,7 +302,7 @@ export class PenComponent implements OnInit {
 
   openJSDialog() {
     const dialogRef = this.dialog.open(JsDialogComponent, {
-      width: '40%',
+      width: '600px',
       height: '70%',
       data: { jsLibrary: this.jsLibrary, mode: this.mode },
       disableClose: true
@@ -320,7 +320,7 @@ export class PenComponent implements OnInit {
 
   openCssDialog() {
     const dialogRef = this.dialog.open(CssDialogComponent, {
-      width: '40%',
+      width: '600px',
       height: '70%',
       data: { cssLibrary: this.cssLibrary, cssMode: this.cssMode },
       disableClose: true
