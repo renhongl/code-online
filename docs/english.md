@@ -1,53 +1,56 @@
-# JS在线编辑器:
+# JS Online Editor:
 
 
-是一个Javascript在线编辑器
+A javascript online editor.
 
-是一个完全由前端语言Angular开发的编辑器， 没有服务器端
+An editor developed by angular, no server support.
 
-在线演示: [Demo](https://renhongl.github.io/code-online#/)
+Online Demo: [Demo](https://renhongl.github.io/code-online#/)
+
 
 <img src="https://renhongl.github.io/code-online/assets/images/v1.png" alt="example1"/>
 
 <img src="https://renhongl.github.io/code-online/assets/images/v2.png" alt="example2"/>
 
-# 文档
+# Docs
 
-- [简体中文]()
-- [English]()
+- [简体中文](https://github.com/renhongl/code-online)
+- [English](https://github.com/renhongl/code-online/blob/master/docs/english.md)
 
-# 新特性
+# New Features
 
-- 支持切换编辑器视角区域
-- 支持全屏预览，并且实时更新
-- 支持导出整个页面源代码
 
-你也可以:
 
-- 添加JS或者CSS库来创作更丰富的应用
-- 在Babel环境中使用更新的ES语法
+- Support switch view
+- Support display on full screen and update automaticly
+- Support export source code of this page
 
-# 使用技术
+You Can Also:
 
-编辑器使用了如下一些技术：
+- Add JS and Css library to create prolific application
+- Use newest syntax in babel environment
 
-- [Angular]() - js 网页增强库
-- [CodeMirror]() - 多才多艺的文本编辑器
-- [GitPages]() - 代码保存与部署
-- [Travis]() - 自动测试与部署
+# Using Tech
 
-# 安装
+Technology used as below:
 
-编辑器需要 [Node.js]() v8+ 去运行.
+- [Angular]() - Web enhenced library
+- [CodeMirror]() - Versatile text edior
+- [GitPages]() - Code store and deploy
+- [Travis]() - CICD
 
-- 安装依赖: `npm install`
-- 打包应用: `npm run build`
+# Installation
 
-# 正在实现的列表
+Requires [Node.js]() v8+ to run.
 
-- <input type="checkbox" disabled/>多文件的项目开发支持
-- <input type="checkbox" disabled/>主页例子展示，他人可通过提交代码添加例子
+- Install dependence: `npm install`
+- Build app: `npm run build`
 
-# 许可证
+# Todos
+
+- <input type="checkbox" disabled/>Mutiple file project support
+- <input type="checkbox" disabled/>Home page show demos, people can push demo by commit code
+
+# License
 
 MIT

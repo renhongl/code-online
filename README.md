@@ -1,9 +1,9 @@
 # JS在线编辑器:
 
 
-是一个Javascript在线编辑器
+是一个Javascript在线编辑器。
 
-是一个完全由前端语言Angular开发的编辑器， 没有服务器端
+是一个完全由前端语言Angular开发的编辑器， 没有服务器端。
 
 在线演示: [Demo](https://renhongl.github.io/code-online#/)
 
@@ -13,8 +13,8 @@
 
 # 文档
 
-- [简体中文](https://github.com/renhongl/code-online/docs/master/doc-zh.md)
-- [English]()
+- [简体中文](https://github.com/renhongl/code-online)
+- [English](https://github.com/renhongl/code-online/blob/master/docs/english.md)
 
 # 新特性
 
@@ -31,7 +31,7 @@
 
 编辑器使用了如下一些技术：
 
-- [Angular]() - js 网页增强库
+- [Angular]() - 网页增强库
 - [CodeMirror]() - 多才多艺的文本编辑器
 - [GitPages]() - 代码保存与部署
 - [Travis]() - 自动测试与部署
