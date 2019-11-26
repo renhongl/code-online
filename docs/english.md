@@ -13,7 +13,7 @@
 
 # 文档
 
-- [简体中文](https://github.com/renhongl/code-online/docs/master/doc-zh.md)
+- [简体中文]()
 - [English]()
 
 # 新特性
