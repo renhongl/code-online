@@ -32,12 +32,17 @@ import 'codemirror/addon/search/jump-to-line.js';
 // import 'codemirror/addon/fold/foldgutter.js';
 // import 'codemirror/addon/fold/brace-fold.js';
 
-// import 'codemirror/addon/lint/lint.js';
-// import 'codemirror/addon/lint/javascript-lint.js';
-
+import jshint from 'jshint';
+import cssLint from 'csslint';
+import 'codemirror/addon/lint/lint.js';
+import 'codemirror/addon/lint/javascript-lint.js';
+import 'codemirror/addon/lint/html-lint.js';
+import 'codemirror/addon/lint/css-lint.js';
 import 'codemirror-formatting';
 
 declare const emmetCodeMirror;
+(<any>window).JSHINT = jshint.JSHINT;
+(<any>window).CSSLint = cssLint.CSSLint;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -225,13 +230,14 @@ export class PenComponent implements OnInit {
     this.cssEditor = CodeMirror(this.cssRef.nativeElement, {
       value: this.cssCode,
       mode: 'css',
-      theme: 'material-darker',
+      theme: 'monokai',
       lineNumbers: true,
       autoCloseBrackets: true,
       styleActiveLine: false,
       indentWithTabs: true,
       indentUnit: 2,
       tabSize: 2,
+      lint: true,
     });
     // CodeMirror.commands['selectAll'](this.cssEditor);
   }
@@ -240,7 +246,7 @@ export class PenComponent implements OnInit {
     this.htmlEditor = CodeMirror(this.htmlRef.nativeElement, {
       value: this.htmlCode,
       mode: 'htmlmixed',
-      theme: 'material-darker',
+      theme: 'monokai',
       lineNumbers: true,
       autoCloseBrackets: true,
       styleActiveLine: false,
@@ -249,6 +255,7 @@ export class PenComponent implements OnInit {
       indentWithTabs: true,
       indentUnit: 2,
       tabSize: 2,
+      lint: true,
     });
     // CodeMirror.commands['selectAll'](this.htmlEditor);
     emmetCodeMirror(this.htmlEditor, {
@@ -260,14 +267,15 @@ export class PenComponent implements OnInit {
     this.jsEditor = CodeMirror(this.jsRef.nativeElement, {
       value: this.jsCode,
       mode: 'javascript',
-      theme: 'material-darker',
+      theme: 'monokai',
       lineNumbers: true,
       autoCloseBrackets: true,
       styleActiveLine: false,
       indentWithTabs: true,
       indentUnit: 2,
       tabSize: 2,
-      extraKeys: {"Alt-F": "findPersistent"}
+      gutters: ['CodeMirror-lint-markers'],
+      lint: { esversion: '8' }
     });
     // this.jsEditor.foldCode(CodeMirror.Pos(0, 0));
     // CodeMirror.commands['selectAll'](this.jsEditor);

@@ -24,8 +24,11 @@
     "angular-split": "^3.0.2",
     "codemirror": "^5.49.2",
     "codemirror-formatting": "^1.0.0",
+    "csslint": "^1.0.5",
     "emmet-codemirror": "^1.2.5",
     "hammerjs": "^2.0.8",
+    "htmlhint": "^0.11.0",
+    "jshint": "^2.10.3",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

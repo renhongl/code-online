@@ -32,6 +32,7 @@
               "src/styles.sass",
               "node_modules/codemirror/lib/codemirror.css",
               "node_modules/codemirror/theme/material-darker.css",
+              "node_modules/codemirror/theme/monokai.css",
               "node_modules/codemirror/addon/lint/lint.css"
             ],
             "scripts": [
