@@ -16,6 +16,18 @@ import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/css/css.js';
 
 import 'codemirror/addon/selection/active-line.js';
+
+
+import 'codemirror/addon/dialog/dialog.js';
+import 'codemirror/addon/dialog/dialog.css';
+
+import 'codemirror/addon/search/search.js';
+import 'codemirror/addon/search/searchcursor.js';
+import 'codemirror/addon/search/match-highlighter.js';
+import 'codemirror/addon/search/jump-to-line.js';
+
+
+
 // import 'codemirror/addon/fold/foldcode.js';
 // import 'codemirror/addon/fold/foldgutter.js';
 // import 'codemirror/addon/fold/brace-fold.js';
@@ -255,6 +267,7 @@ export class PenComponent implements OnInit {
       indentWithTabs: true,
       indentUnit: 2,
       tabSize: 2,
+      extraKeys: {"Alt-F": "findPersistent"}
     });
     // this.jsEditor.foldCode(CodeMirror.Pos(0, 0));
     // CodeMirror.commands['selectAll'](this.jsEditor);
@@ -271,8 +284,7 @@ export class PenComponent implements OnInit {
     const typeMapping = {
       None: 'text/javascript',
       Babel: 'text/babel',
-      TypeScript: 'text/javascript',
-      CoffeeScript: 'text/javascript',
+      TypeScript: 'text/typescript',
     };
     return typeMapping[this.mode];
   }
@@ -355,6 +367,18 @@ export class PenComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.jsLibrary = result.jsLibrary || [];
       this.mode = result.mode;
+      const babelPath = 'https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js';
+      const path = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/3.6.3/typescript.min.js';
+      if (this.mode === 'Babel') {
+        this.jsLibrary = this.jsLibrary.filter(item => item !== babelPath);
+        this.jsLibrary = this.jsLibrary.filter(item => item !== path);
+        this.jsLibrary.push(babelPath);
+      } else if (this.mode === 'TypeScript') {
+        this.jsLibrary = this.jsLibrary.filter(item => item !== babelPath);
+        this.jsLibrary = this.jsLibrary.filter(item => item !== path);
+        this.jsLibrary.push(path);
+        this.jsLibrary.push('/code-online/assets/libs/typescript.compile.js');
+      }
       this.refresh();
       this.cd.detectChanges();
       localStorage.setItem('code-online-jsLib', JSON.stringify(this.jsLibrary));
