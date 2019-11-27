@@ -46,7 +46,10 @@
         <as-split direction="horizontal">
           <as-split-area size="33">
             <div class="code-con">
-              <div class="title">HTML</div>
+              <div class="title">
+                <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
+                </button>HTML</div>
               <div #html class="code">
               </div>
             </div>
@@ -56,6 +59,9 @@
               <div class="title">
                 <button mat-icon-button (click)="openCssDialog()">
                   <mat-icon>settings</mat-icon>
+                </button>
+                <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
                 </button>
                 <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
               </div>
@@ -68,6 +74,15 @@
               <div class="title">
                 <button mat-icon-button (click)="openJSDialog()">
                   <mat-icon>settings</mat-icon>
+                </button>
+                <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
+                </button>
+                <button class="uncomment-icon" mat-icon-button (click)="unCommentJs()" matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentJs()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
@@ -92,14 +107,26 @@
         <as-split direction="vertical">
           <as-split-area size="33">
             <div class="code-con">
-              <div class="title">HTML</div>
+              <div class="title">
+                <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
+                </button>HTML
+              </div>
               <div #html class="code">
               </div>
             </div>
           </as-split-area>
           <as-split-area size="33">
             <div class="code-con">
-              <div class="title">CSS</div>
+              <div class="title">
+                <button mat-icon-button (click)="openCssDialog()">
+                  <mat-icon>settings</mat-icon>
+                </button>
+                <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
+                </button>
+                <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
+              </div>
               <div #css class="code">
               </div>
             </div>
@@ -109,6 +136,15 @@
               <div class="title">
                 <button mat-icon-button (click)="openJSDialog()">
                   <mat-icon>settings</mat-icon>
+                </button>
+                <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
+                </button>
+                <button class="uncomment-icon" mat-icon-button (click)="unCommentJs()" matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentJs()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
@@ -139,14 +175,26 @@
         <as-split direction="vertical">
           <as-split-area size="33">
             <div class="code-con">
-              <div class="title">HTML</div>
+              <div class="title">
+                <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
+                </button>HTML
+              </div>
               <div #html class="code">
               </div>
             </div>
           </as-split-area>
           <as-split-area size="33">
             <div class="code-con">
-              <div class="title">CSS</div>
+              <div class="title">
+                <button mat-icon-button (click)="openCssDialog()">
+                  <mat-icon>settings</mat-icon>
+                </button>
+                <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
+                </button>
+                <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
+              </div>
               <div #css class="code">
               </div>
             </div>
@@ -156,6 +204,15 @@
               <div class="title">
                 <button mat-icon-button (click)="openJSDialog()">
                   <mat-icon>settings</mat-icon>
+                </button>
+                <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
+                  <mat-icon>format_line_spacing</mat-icon>
+                </button>
+                <button class="uncomment-icon" mat-icon-button (click)="unCommentJs()" matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentJs()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>

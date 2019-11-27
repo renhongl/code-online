@@ -16,14 +16,16 @@ import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/css/css.js';
 
 import 'codemirror/addon/selection/active-line.js';
-import 'codemirror/addon/fold/foldcode.js';
-import 'codemirror/addon/fold/foldgutter.js';
-import 'codemirror/addon/fold/brace-fold.js';
-import 'codemirror/addon/comment/comment.js';
-import 'codemirror/addon/comment/continuecomment.js';
+// import 'codemirror/addon/fold/foldcode.js';
+// import 'codemirror/addon/fold/foldgutter.js';
+// import 'codemirror/addon/fold/brace-fold.js';
 
-import 'codemirror/addon/lint/lint.js';
-import 'codemirror/addon/lint/javascript-lint.js';
+// import 'codemirror/addon/lint/lint.js';
+// import 'codemirror/addon/lint/javascript-lint.js';
+
+import 'codemirror-formatting';
+
+declare const emmetCodeMirror;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -93,7 +95,7 @@ export class PenComponent implements OnInit {
   openNewTab() {
     window.open('/code-online#/fullScreen', '_blank');
   }
-  
+
   changeView(value) {
     this.currentView = value;
     localStorage.setItem('code-online-view-type', value);
@@ -159,6 +161,32 @@ export class PenComponent implements OnInit {
     });
   }
 
+  formatJs() {
+    const range = { from: this.jsEditor.getCursor(true), to: this.jsEditor.getCursor(false) };
+    this.jsEditor.autoFormatRange(range.from, range.to);
+  }
+
+  formatHtml() {
+    const range = { from: this.htmlEditor.getCursor(true), to: this.htmlEditor.getCursor(false) };
+    this.htmlEditor.autoFormatRange(range.from, range.to);
+  }
+
+  formatCss() {
+    const range = { from: this.cssEditor.getCursor(true), to: this.cssEditor.getCursor(false) };
+    this.cssEditor.autoFormatRange(range.from, range.to);
+  }
+
+  commentJs() {
+    const range = { from: this.jsEditor.getCursor(true), to: this.jsEditor.getCursor(false) };
+    this.jsEditor.commentRange(true, range.from, range.to);
+  }
+
+  unCommentJs() {
+    const range = { from: this.jsEditor.getCursor(true), to: this.jsEditor.getCursor(false) };
+    this.jsEditor.commentRange(false, range.from, range.to);
+  }
+
+
   refresh() {
     this.jsCode = this.jsEditor.getValue();
     this.htmlCode = this.htmlEditor.getValue();
@@ -189,7 +217,11 @@ export class PenComponent implements OnInit {
       lineNumbers: true,
       autoCloseBrackets: true,
       styleActiveLine: false,
+      indentWithTabs: true,
+      indentUnit: 2,
+      tabSize: 2,
     });
+    // CodeMirror.commands['selectAll'](this.cssEditor);
   }
 
   initHtml() {
@@ -201,6 +233,14 @@ export class PenComponent implements OnInit {
       autoCloseBrackets: true,
       styleActiveLine: false,
       autoCloseTags: true,
+      profile: 'html',
+      indentWithTabs: true,
+      indentUnit: 2,
+      tabSize: 2,
+    });
+    // CodeMirror.commands['selectAll'](this.htmlEditor);
+    emmetCodeMirror(this.htmlEditor, {
+      Tab: 'emmet.expand_abbreviation_with_tab',
     });
   }
 
@@ -212,8 +252,12 @@ export class PenComponent implements OnInit {
       lineNumbers: true,
       autoCloseBrackets: true,
       styleActiveLine: false,
+      indentWithTabs: true,
+      indentUnit: 2,
+      tabSize: 2,
     });
     this.jsEditor.foldCode(CodeMirror.Pos(0, 0));
+    // CodeMirror.commands['selectAll'](this.jsEditor);
   }
 
   removeTag(tagName) {
@@ -242,7 +286,7 @@ export class PenComponent implements OnInit {
   getNewIframe() {
     const pre = document.getElementById('previewIframe-' + this.currentView);
     if (!this.jsCode || this.jsCode.indexOf('setInterval') === -1 &&
-       this.jsCode.indexOf('setTimeout') === -1 && this.jsCode.indexOf('requestAnimationFrame') === -1) {
+      this.jsCode.indexOf('setTimeout') === -1 && this.jsCode.indexOf('requestAnimationFrame') === -1) {
       return pre;
     }
     if (pre) {

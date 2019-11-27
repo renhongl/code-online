@@ -23,6 +23,8 @@
     "@angular/router": "~8.2.13",
     "angular-split": "^3.0.2",
     "codemirror": "^5.49.2",
+    "codemirror-formatting": "^1.0.0",
+    "emmet-codemirror": "^1.2.5",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

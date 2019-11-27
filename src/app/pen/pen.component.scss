@@ -2,6 +2,21 @@
     width: 100%;
     height: 100%;
 
+    .format-icon{
+        position: absolute;
+        right: 10px;
+    }
+
+    .uncomment-icon{
+        position: absolute;
+        right: 40px;
+    }
+
+    .comment-icon{
+        position: absolute;
+        right: 70px;
+    }
+
     .js-title{
         font-size: 12px;
     }

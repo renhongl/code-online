@@ -34,7 +34,9 @@
               "node_modules/codemirror/theme/material-darker.css",
               "node_modules/codemirror/addon/lint/lint.css"
             ],
-            "scripts": []
+            "scripts": [
+              
+            ]
           },
           "configurations": {
             "production": {
