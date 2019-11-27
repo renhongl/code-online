@@ -256,7 +256,7 @@ export class PenComponent implements OnInit {
       indentUnit: 2,
       tabSize: 2,
     });
-    this.jsEditor.foldCode(CodeMirror.Pos(0, 0));
+    // this.jsEditor.foldCode(CodeMirror.Pos(0, 0));
     // CodeMirror.commands['selectAll'](this.jsEditor);
   }
 
