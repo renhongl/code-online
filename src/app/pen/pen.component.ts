@@ -297,8 +297,7 @@ export class PenComponent implements OnInit {
 
   getNewIframe() {
     const pre = document.getElementById('previewIframe-' + this.currentView);
-    if (!this.jsCode || this.jsCode.indexOf('setInterval') === -1 &&
-      this.jsCode.indexOf('setTimeout') === -1 && this.jsCode.indexOf('requestAnimationFrame') === -1) {
+    if (!this.jsCode) {
       return pre;
     }
     if (pre) {
