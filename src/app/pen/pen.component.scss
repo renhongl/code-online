@@ -2,6 +2,37 @@
     width: 100%;
     height: 100%;
 
+    #output {
+        width: 100%;
+        height: 100%;
+        background: #3e3e3e;
+        overflow: auto;
+
+        .output-log{
+            height: 25px;
+            line-height: 25px;
+            background: #6d6d6d;
+            color: #c3c3c3;
+            padding-left: 10px;
+        }
+
+        .output-warn{
+            height: 25px;
+            line-height: 25px;
+            background: #6d6d6d;
+            color: #c3c3c3;
+            padding-left: 10px;
+        }
+
+        .output-error{
+            height: 25px;
+            line-height: 25px;
+            background: #6d6d6d;
+            color: #c3c3c3;
+            padding-left: 10px;
+        }
+    }
+
     .format-icon{
         position: absolute;
         right: 10px;
@@ -49,10 +80,13 @@
     .title {
         height: 30px;
         line-height: 30px;
-        color: #fff;
+        color: #b5b5b5;
         padding-left: 10px;
         background: #313131;
         display: flex;
+        font-family: cursive;
+        font-size: 16px;
+        font-weight: 100;
     }
 
     .as-split-area > div {
@@ -108,13 +142,17 @@
         }
 
         .header-title{
-            // width: 100px;
             color: #fff;
             min-width: 80px;
         }
 
         input:disabled{
-            color: #c3c3c3  !important;
+            color: #fff !important;
+            font-size: 18px;
+        }
+
+        input{
+            font-size: 18px;
         }
 
         .edit{

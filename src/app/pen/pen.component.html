@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
     <img class="logo" width="20px" height="20px" src="/code-online/assets/images/logo.png" alt="" />
-    <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 8 + 'px'}">
+    <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 10 + 'px'}">
       <input #title matInput [(ngModel)]="titleWord" [disabled]="!changeTitle" (blur)="disableTitle()"
         (input)="updateTitle()">
     </mat-form-field>
@@ -86,7 +86,7 @@
                 </button>
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
-              <div #js class="code">
+              <div #js class="code js-code">
               </div>
             </div>
           </as-split-area>
@@ -97,6 +97,9 @@
           <iframe id="previewIframe-top" frameborder="0" #preview width="100%" height="100%"></iframe>
           <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
         </div>
+      </as-split-area>
+      <as-split-area size="0">
+        <div id="output"></div>
       </as-split-area>
     </as-split>
   </div>
@@ -148,17 +151,25 @@
                 </button>
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
-              <div #js class="code">
+              <div #js class="code js-code">
               </div>
             </div>
           </as-split-area>
         </as-split>
       </as-split-area>
       <as-split-area size="50">
-        <div class="preview-parent-left">
-          <iframe id="previewIframe-left" frameborder="0" #preview width="100%" height="100%"></iframe>
-          <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
-        </div>
+        <as-split direction="vertical" (dragStart)="showIframeHider = true" (dragEnd)="showIframeHider = false">
+          <as-split-area size="100">
+            <div class="preview-parent-left">
+              <iframe id="previewIframe-left" frameborder="0" #preview width="100%" height="100%"></iframe>
+              <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
+            </div>
+          </as-split-area>
+          <as-split-area size="0">
+            <div id="output"></div>
+          </as-split-area>
+        </as-split>
+
       </as-split-area>
     </as-split>
   </div>
@@ -166,10 +177,17 @@
   <div *ngIf="currentView === 'right'" class="split-con" style="height: calc(100% - 50px);">
     <as-split direction="horizontal" (dragStart)="showIframeHider = true" (dragEnd)="showIframeHider = false">
       <as-split-area size="50">
-        <div class="preview-parent-right">
-          <iframe id="previewIframe-right" frameborder="0" #preview width="100%" height="100%"></iframe>
-          <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
-        </div>
+        <as-split direction="vertical" (dragStart)="showIframeHider = true" (dragEnd)="showIframeHider = false">
+          <as-split-area size="100">
+            <div class="preview-parent-right">
+              <iframe id="previewIframe-right" frameborder="0" #preview width="100%" height="100%"></iframe>
+              <div [hidden]="showIframeHider === false" class="hack-iframe-hider"></div>
+            </div>
+          </as-split-area>
+          <as-split-area size="0">
+            <div id="output"></div>
+          </as-split-area>
+        </as-split>
       </as-split-area>
       <as-split-area size="50">
         <as-split direction="vertical">
@@ -216,7 +234,7 @@
                 </button>
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
-              <div #js class="code">
+              <div #js class="code js-code">
               </div>
             </div>
           </as-split-area>

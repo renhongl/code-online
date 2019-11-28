@@ -23,6 +23,8 @@
     "@angular/router": "~8.2.13",
     "angular-split": "^3.0.2",
     "codemirror": "^5.49.2",
+    "codemirror-console": "^2.0.1",
+    "codemirror-console-ui": "^2.0.5",
     "codemirror-formatting": "^1.0.0",
     "csslint": "^1.0.5",
     "emmet-codemirror": "^1.2.5",

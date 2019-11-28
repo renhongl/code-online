@@ -5,7 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { JsDialogComponent } from './js-dialog/js-dialog.component';
 import { CssDialogComponent } from './css-dialog/css-dialog.component';
+// import { attachToElement } from "codemirror-console-ui";
 
+import MirrorConsole from 'codemirror-console';
 
 import 'codemirror/addon/lint/lint.css';
 
@@ -360,7 +362,56 @@ export class PenComponent implements OnInit {
       localStorage.setItem('code-online-js', this.jsCode);
       localStorage.setItem('code-online-html', this.htmlCode);
       localStorage.setItem('code-online-css', this.cssCode);
+
+      this.printOnConsole();
     }, 1000);
+  }
+
+  printOnConsole() {
+    const output = document.getElementById('output');
+    output.innerHTML = '';
+    const content = document.querySelector('.js-code .CodeMirror');
+    const editor = new MirrorConsole();
+    editor.setText(this.jsCode);
+    editor.swapWithElement(content);
+    const consoleMock = {
+      log: (arg) => {
+        function line(text) {
+          const div = document.createElement('div');
+          div.setAttribute('class', 'output-log');
+          div.setAttribute('style', 'color: #c3c3c3; padding-left: 10px;background: #6d6d6d; height: 30px; line-height: 30px;border-bottom: 1px solid gray');
+          div.appendChild(document.createTextNode(text));
+          return div;
+        }
+        output.appendChild(line(arg));
+      },
+      warn: (arg) => {
+        function line(text) {
+          const div = document.createElement('div');
+          div.setAttribute('class', 'output-warn');
+          div.setAttribute('style', 'color: #ffd400; padding-left: 10px;background: #6c6d29; height: 30px; line-height: 30px;border-bottom: 1px solid gray');
+          div.appendChild(document.createTextNode(text));
+          return div;
+        }
+        output.appendChild(line(arg));
+      },
+      error: (arg) => {
+        function line(text) {
+          const div = document.createElement('div');
+          div.setAttribute('class', 'output-error');
+          div.setAttribute('style', 'color: red; padding-left: 10px;background: #734141; height: 30px; line-height: 30px;border-bottom: 1px solid gray');
+          div.appendChild(document.createTextNode(text));
+          return div;
+        }
+        output.appendChild(line(arg));
+      }
+    };
+    editor.runInContext({ console: consoleMock }, (error, result) => {
+      if (error) {
+        console.error(error);
+      }
+    });
+    editor.destroy();
   }
 
   openJSDialog() {
