@@ -20,6 +20,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { FullScreenComponent } from './full-screen/full-screen.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+
+
 const appRoutes: Routes = [
   { path: '', component: PenComponent },
   { path: 'fullScreen', component: FullScreenComponent },

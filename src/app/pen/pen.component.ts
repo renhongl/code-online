@@ -1,13 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import CodeMirror from 'codemirror';
-// import { interval } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
 import { JsDialogComponent } from './js-dialog/js-dialog.component';
 import { CssDialogComponent } from './css-dialog/css-dialog.component';
-// import { attachToElement } from "codemirror-console-ui";
-
-import MirrorConsole from 'codemirror-console';
 
 import 'codemirror/addon/lint/lint.css';
 
@@ -19,7 +15,6 @@ import 'codemirror/mode/css/css.js';
 
 import 'codemirror/addon/selection/active-line.js';
 
-
 import 'codemirror/addon/dialog/dialog.js';
 import 'codemirror/addon/dialog/dialog.css';
 
@@ -27,8 +22,6 @@ import 'codemirror/addon/search/search.js';
 import 'codemirror/addon/search/searchcursor.js';
 import 'codemirror/addon/search/match-highlighter.js';
 import 'codemirror/addon/search/jump-to-line.js';
-
-
 
 // import 'codemirror/addon/fold/foldcode.js';
 // import 'codemirror/addon/fold/foldgutter.js';
@@ -41,6 +34,8 @@ import 'codemirror/addon/lint/javascript-lint.js';
 import 'codemirror/addon/lint/html-lint.js';
 import 'codemirror/addon/lint/css-lint.js';
 import 'codemirror-formatting';
+
+// import '../console.js';
 
 declare const emmetCodeMirror;
 (<any>window).JSHINT = jshint.JSHINT;
@@ -343,6 +338,7 @@ export class PenComponent implements OnInit {
           <head>
             <meta charset="UTF-8" />
             <title>Untitled</title>
+            <script src="/code-online/assets/libs/console.js"></script>
             ${this.writeLinks().join(',').replace(/,/ig, '')}
             <style>${this.cssCode}</style>
           </head>
@@ -363,56 +359,23 @@ export class PenComponent implements OnInit {
       localStorage.setItem('code-online-html', this.htmlCode);
       localStorage.setItem('code-online-css', this.cssCode);
 
-      this.printOnConsole();
+      // this.jsLibrary.forEach(item => {
+      //   const s = document.createElement('script');
+      //   s.setAttribute('src', item);
+      //   document.head.appendChild(s);
+      // });
+      document.getElementById('output').innerHTML = '';
+      // setTimeout(() => {
+      //   document.getElementById('output').innerHTML = '';
+      //   // this.printOnConsole();
+      // }, 2000);
     }, 1000);
   }
 
-  printOnConsole() {
-    const output = document.getElementById('output');
-    output.innerHTML = '';
-    const content = document.querySelector('.js-code .CodeMirror');
-    const editor = new MirrorConsole();
-    editor.setText(this.jsCode);
-    editor.swapWithElement(content);
-    const consoleMock = {
-      log: (arg) => {
-        function line(text) {
-          const div = document.createElement('div');
-          div.setAttribute('class', 'output-log');
-          div.setAttribute('style', 'color: #c3c3c3; padding-left: 10px;background: #6d6d6d; height: 30px; line-height: 30px;border-bottom: 1px solid gray');
-          div.appendChild(document.createTextNode(text));
-          return div;
-        }
-        output.appendChild(line(arg));
-      },
-      warn: (arg) => {
-        function line(text) {
-          const div = document.createElement('div');
-          div.setAttribute('class', 'output-warn');
-          div.setAttribute('style', 'color: #ffd400; padding-left: 10px;background: #6c6d29; height: 30px; line-height: 30px;border-bottom: 1px solid gray');
-          div.appendChild(document.createTextNode(text));
-          return div;
-        }
-        output.appendChild(line(arg));
-      },
-      error: (arg) => {
-        function line(text) {
-          const div = document.createElement('div');
-          div.setAttribute('class', 'output-error');
-          div.setAttribute('style', 'color: red; padding-left: 10px;background: #734141; height: 30px; line-height: 30px;border-bottom: 1px solid gray');
-          div.appendChild(document.createTextNode(text));
-          return div;
-        }
-        output.appendChild(line(arg));
-      }
-    };
-    editor.runInContext({ console: consoleMock }, (error, result) => {
-      if (error) {
-        console.error(error);
-      }
-    });
-    editor.destroy();
-  }
+  // printOnConsole() {
+  //   console.log('11111111');
+  //   document.querySelector('iframe').contentWindow['eval'](this.jsCode);
+  // }
 
   openJSDialog() {
     const dialogRef = this.dialog.open(JsDialogComponent, {
