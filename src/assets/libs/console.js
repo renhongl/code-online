@@ -12,7 +12,7 @@ window['console'] = {
         output.appendChild(div);
         div.scrollIntoView();
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     error: (text) => {
