@@ -34,10 +34,16 @@
 <div mat-dialog-content>
   <div *ngFor="let item of list; let i = index">
     <mat-form-field class="example-full-width">
-      <input matInput [value]="item" disabled class="path-view">
+      <input matInput [value]="item" class="path-view" (change)="updateItem(i, $event)">
     </mat-form-field>
     <button mat-icon-button (click)="remove(i)" class="path-action">
       <mat-icon>delete</mat-icon>
     </button>
+  </div>
+  <div class="add-more" (click)="addOneItem()">
+    <button mat-icon-button class="path-action">
+      <mat-icon>add</mat-icon>
+    </button>
+    Add Another Lib
   </div>
 </div>

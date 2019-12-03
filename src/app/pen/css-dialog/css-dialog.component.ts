@@ -65,4 +65,13 @@ export class CssDialogComponent implements OnInit {
     this.list.splice(i, 1);
   }
 
+  addOneItem() {
+    this.list.push('');
+  }
+
+  updateItem(i, e) {
+    this.list[i] = e.target.value;
+  }
+
+
 }

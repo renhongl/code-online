@@ -15,6 +15,22 @@
     color: gray;
 }
 
+.add-more {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    border: 1px solid gray;
+    width: 150px;
+    border-radius: 5px;
+    height: 30px;
+    cursor: pointer;
+
+    &:hover{
+        border: 1px solid #3f51b5;
+        color: #3f51b5;
+    }
+}
+
 .search-result {
     position: absolute;
     background: #4c4a4a;

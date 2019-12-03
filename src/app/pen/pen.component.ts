@@ -23,9 +23,6 @@ import 'codemirror/addon/search/searchcursor.js';
 import 'codemirror/addon/search/match-highlighter.js';
 import 'codemirror/addon/search/jump-to-line.js';
 
-// import 'codemirror/addon/fold/foldcode.js';
-// import 'codemirror/addon/fold/foldgutter.js';
-// import 'codemirror/addon/fold/brace-fold.js';
 
 import jshint from 'jshint';
 import cssLint from 'csslint';
@@ -34,8 +31,6 @@ import 'codemirror/addon/lint/javascript-lint.js';
 import 'codemirror/addon/lint/html-lint.js';
 import 'codemirror/addon/lint/css-lint.js';
 import 'codemirror-formatting';
-
-// import '../console.js';
 
 declare const emmetCodeMirror;
 (<any>window).JSHINT = jshint.JSHINT;
@@ -65,7 +60,6 @@ export class PenComponent implements OnInit {
   cssLibrary: Array<string>;
   downloadUrl: string;
 
-  // showPreview = true;
   showIframeHider = false;
   mode = 'None';
   currentView = 'top';
@@ -88,8 +82,8 @@ export class PenComponent implements OnInit {
     this.cssCode = localStorage.getItem('code-online-css') || '';
     this.mode = localStorage.getItem('code-online-mode') || 'None';
     this.cssMode = localStorage.getItem('code-online-cssmode') || 'None';
-    this.jsLibrary = JSON.parse(localStorage.getItem('code-online-jsLib')) || [];
-    this.cssLibrary = JSON.parse(localStorage.getItem('code-online-cssLib')) || [];
+    this.jsLibrary = this.getLibs('code-online-jsLib');
+    this.cssLibrary = this.getLibs('code-online-cssLib');
     this.currentView = localStorage.getItem('code-online-view-type') || 'top';
     setTimeout(() => {
       this.updateDocumentTitle();
@@ -100,6 +94,16 @@ export class PenComponent implements OnInit {
       this.autoUpdate();
     }, 500);
     // this.handleSave();
+  }
+
+  getLibs(topic) {
+    let arr = JSON.parse(localStorage.getItem(topic)) || [];
+    arr = this.getNoneEmpty(arr);
+    return arr;
+  }
+
+  getNoneEmpty(arr) {
+    return arr.filter(item => item.toLowerCase() !== '');
   }
 
   goToGit() {
@@ -236,7 +240,6 @@ export class PenComponent implements OnInit {
       tabSize: 2,
       lint: true,
     });
-    // CodeMirror.commands['selectAll'](this.cssEditor);
   }
 
   initHtml() {
@@ -254,7 +257,6 @@ export class PenComponent implements OnInit {
       tabSize: 2,
       lint: true,
     });
-    // CodeMirror.commands['selectAll'](this.htmlEditor);
     emmetCodeMirror(this.htmlEditor, {
       Tab: 'emmet.expand_abbreviation_with_tab',
     });
@@ -274,8 +276,6 @@ export class PenComponent implements OnInit {
       gutters: ['CodeMirror-lint-markers'],
       lint: { esversion: '8' }
     });
-    // this.jsEditor.foldCode(CodeMirror.Pos(0, 0));
-    // CodeMirror.commands['selectAll'](this.jsEditor);
   }
 
   removeTag(tagName) {
@@ -323,8 +323,6 @@ export class PenComponent implements OnInit {
   }
 
   initPreview() {
-    // this.showPreview = false;
-    // this.showPreview = true;
     this.doc = this.getNewIframe();
     setTimeout(() => {
       this.doc = this.getDoc();
@@ -359,23 +357,9 @@ export class PenComponent implements OnInit {
       localStorage.setItem('code-online-html', this.htmlCode);
       localStorage.setItem('code-online-css', this.cssCode);
 
-      // this.jsLibrary.forEach(item => {
-      //   const s = document.createElement('script');
-      //   s.setAttribute('src', item);
-      //   document.head.appendChild(s);
-      // });
       document.getElementById('output').innerHTML = '';
-      // setTimeout(() => {
-      //   document.getElementById('output').innerHTML = '';
-      //   // this.printOnConsole();
-      // }, 2000);
     }, 1000);
   }
-
-  // printOnConsole() {
-  //   console.log('11111111');
-  //   document.querySelector('iframe').contentWindow['eval'](this.jsCode);
-  // }
 
   openJSDialog() {
     const dialogRef = this.dialog.open(JsDialogComponent, {
@@ -386,7 +370,9 @@ export class PenComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.jsLibrary = result.jsLibrary || [];
+      let arr = result.jsLibrary || [];
+      arr = this.getNoneEmpty(arr);
+      this.jsLibrary = arr;
       this.mode = result.mode;
       const babelPath = 'https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js';
       const path = 'https://cdnjs.cloudflare.com/ajax/libs/typescript/3.6.3/typescript.min.js';
@@ -416,7 +402,9 @@ export class PenComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.cssLibrary = result.cssLibrary || [];
+      let arr = result.cssLibrary || [];
+      arr = this.getNoneEmpty(arr);
+      this.cssLibrary = arr;
       this.cssMode = result.mode;
       this.refresh();
       this.cd.detectChanges();
