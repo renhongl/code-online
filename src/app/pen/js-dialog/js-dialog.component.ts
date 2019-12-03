@@ -20,7 +20,7 @@ export class JsDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<PenComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private penSer: PenService) {
-    }
+  }
 
   ngOnInit() {
     this.list = this.data.jsLibrary;

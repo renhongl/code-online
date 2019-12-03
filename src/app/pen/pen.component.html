@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <img class="logo" width="20px" height="20px" src="/code-online/assets/images/logo.png" alt="" />
+    <img class="logo" width="20px" height="20px" (click)="homePage()" src="/code-online/assets/images/logo.png" alt="" />
     <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 10 + 'px'}">
       <input #title matInput [(ngModel)]="titleWord" [disabled]="!changeTitle" (blur)="disableTitle()"
         (input)="updateTitle()">

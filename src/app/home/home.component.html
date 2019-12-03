@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="header">
+    <img class="logo" width="20px" height="20px" src="/code-online/assets/images/logo.png" alt="" />
+
+    <button mat-icon-button class="new-pen" (click)="newPen()" matTooltip="Create a New Pen">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <button mat-icon-button class="git" matTooltip="View Git Hub" (click)="goToGit()">
+      <img width="20px" height="20px" src="/code-online/assets/images/git_logo.png" alt="" />
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="example-full-width">
+      <div class="search">
+        <input type="text" placeholder="Search Pens"/>
+      </div>
+      <div class="search-icon">
+        <mat-icon>search</mat-icon>
+      </div>
+    </div>
+    <div class="line">
+        Picked Pens
+    </div>
+
+    <div class="pen-con">
+        <div class="pen-panel" *ngFor="let item of list">
+            {{item['code-online-title']}}
+        </div>
+    </div>
+  </div>
+
+</div>

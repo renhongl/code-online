@@ -19,11 +19,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Routes, RouterModule } from '@angular/router';
 import { FullScreenComponent } from './full-screen/full-screen.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { HomeComponent } from './home/home.component';
 
 
 
 const appRoutes: Routes = [
-  { path: '', component: PenComponent },
+  { path: '', component: HomeComponent },
+  { path: 'pen', component: PenComponent },
   { path: 'fullScreen', component: FullScreenComponent },
 ];
 
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     PenComponent,
     JsDialogComponent,
     FullScreenComponent,
-    CssDialogComponent
+    CssDialogComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

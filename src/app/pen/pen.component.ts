@@ -31,6 +31,7 @@ import 'codemirror/addon/lint/javascript-lint.js';
 import 'codemirror/addon/lint/html-lint.js';
 import 'codemirror/addon/lint/css-lint.js';
 import 'codemirror-formatting';
+import { Router } from '@angular/router';
 
 declare const emmetCodeMirror;
 (<any>window).JSHINT = jshint.JSHINT;
@@ -72,7 +73,7 @@ export class PenComponent implements OnInit {
   @ViewChild('jsTitle', { static: true }) jsTitleRef;
   @ViewChild('title', { static: true }) titleRef;
 
-  constructor(public dialog: MatDialog, private cd: ChangeDetectorRef) {
+  constructor(public dialog: MatDialog, private cd: ChangeDetectorRef, private router: Router) {
   }
 
   ngOnInit() {
@@ -108,6 +109,10 @@ export class PenComponent implements OnInit {
 
   goToGit() {
     window.open('https://github.com/renhongl/code-online', '_blank');
+  }
+
+  homePage() {
+    this.router.navigate(['/']);
   }
 
   openNewTab() {
