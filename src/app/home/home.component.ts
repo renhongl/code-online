@@ -84,6 +84,9 @@ export class HomeComponent implements OnInit {
   `;
   }
 
+  goToGit() {
+    window.open('https://github.com/renhongl/code-online', '_blank');
+  }
 
   writeDocument(i) {
     const dom = document.getElementById('preview-iframe' + i);
