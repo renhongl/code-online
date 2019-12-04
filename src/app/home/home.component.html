@@ -29,7 +29,7 @@
 
     <div class="pen-con">
         <div class="pen-panel" *ngFor="let item of list; let i = index">
-            <a class="link" routerLink="/pen" (click)="openPen(i)"></a>
+            <a class="link" routerLink="/pen" (click)="openPen(i)" (contextmenu)="openPen(i)"></a>
             <div class="iframe-con">
               <iframe [id]="'preview-iframe' + i" frameborder="0" width="100%" height="100%"></iframe>
             </div>

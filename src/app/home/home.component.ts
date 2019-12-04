@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, private homeSer: HomeService) { }
 
   ngOnInit() {
+    document.title = 'Code Online';
     this.homeSer.getPens().subscribe(data => {
       this.list = data;
       setTimeout(() => {
