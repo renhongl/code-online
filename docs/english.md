@@ -8,6 +8,10 @@ An editor developed by angular, no server support.
 Online Demo: [Demo](https://renhongl.github.io/code-online#/)
 
 
+<img src="https://renhongl.github.io/code-online/assets/images/v5.png" alt="example2"/>
+
+<img src="https://renhongl.github.io/code-online/assets/images/v4.png" alt="example2"/>
+
 <img src="https://renhongl.github.io/code-online/assets/images/v1.png" alt="example1"/>
 
 <img src="https://renhongl.github.io/code-online/assets/images/v2.png" alt="example2"/>
@@ -24,6 +28,9 @@ Online Demo: [Demo](https://renhongl.github.io/code-online#/)
 - Support switch view
 - Support display on full screen and update automaticly
 - Support export source code of this page
+- Editor enhence
+- Console visualization
+- Demo explore
 
 You Can Also:
 

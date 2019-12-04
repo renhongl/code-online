@@ -109,6 +109,10 @@ export class PenComponent implements OnInit {
     return arr.filter(item => item.toLowerCase() !== '');
   }
 
+  clearConsole() {
+    document.getElementById('output').innerHTML = '';
+  }
+
   goToGit() {
     window.open('https://github.com/renhongl/code-online', '_blank');
   }

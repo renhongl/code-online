@@ -2,11 +2,35 @@
     width: 100%;
     height: 100%;
 
-    #output {
+    .console-con{
         width: 100%;
         height: 100%;
+        overflow: hidden;
+
+        .console-title {
+            position: absolute;
+            top: 0;
+            /* z-index: 10000; */
+            height: 30px !important;
+            width: 100%;
+            background: #313131;
+            line-height: 30px;
+            color: #b5b5b5;
+            padding-left: 10px;
+            font-family: cursive;
+            font-size: 16px;
+        }
+    }
+
+    
+
+    #output {
+        width: 100%;
+        height: calc(100% - 30px);
         background: #3e3e3e;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin-top: 30px;
 
         .output-log{
             height: 25px;

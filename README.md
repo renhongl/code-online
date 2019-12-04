@@ -7,6 +7,10 @@
 
 在线演示: [Demo](https://renhongl.github.io/code-online#/)
 
+<img src="https://renhongl.github.io/code-online/assets/images/v5.png" alt="example2"/>
+
+<img src="https://renhongl.github.io/code-online/assets/images/v4.png" alt="example2"/>
+
 <img src="https://renhongl.github.io/code-online/assets/images/v1.png" alt="example1"/>
 
 <img src="https://renhongl.github.io/code-online/assets/images/v2.png" alt="example2"/>
@@ -21,6 +25,9 @@
 - 支持切换编辑器视角区域
 - 支持全屏预览，并且实时更新
 - 支持导出整个页面源代码
+- 编辑器增强
+- 控制台可视化
+- 作品展示页面
 
 你也可以:
 
