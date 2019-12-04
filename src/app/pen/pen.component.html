@@ -1,6 +1,7 @@
 <div class="container">
   <div class="header">
-    <img class="logo" width="20px" height="20px" (click)="homePage()" src="/code-online/assets/images/logo.png" alt="" />
+    <img class="logo" width="20px" height="20px" (click)="homePage()" src="/code-online/assets/images/logo.png"
+      alt="" />
     <mat-form-field class="header-title" [ngStyle]="{'width': titleWord.length * 10 + 'px'}">
       <input #title matInput [(ngModel)]="titleWord" [disabled]="!changeTitle" (blur)="disableTitle()"
         (input)="updateTitle()">
@@ -49,6 +50,12 @@
               <div class="title">
                 <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
+                </button><button class="uncomment-icon" mat-icon-button (click)="unCommentHtml()"
+                  matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentHtml()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>HTML</div>
               <div #html class="code">
               </div>
@@ -62,6 +69,12 @@
                 </button>
                 <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
+                </button>
+                <button class="uncomment-icon" mat-icon-button (click)="unCommentCss()" matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentCss()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>
                 <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
               </div>
@@ -113,6 +126,12 @@
               <div class="title">
                 <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
+                </button><button class="uncomment-icon" mat-icon-button (click)="unCommentHtml()"
+                  matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentHtml()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>HTML
               </div>
               <div #html class="code">
@@ -127,6 +146,12 @@
                 </button>
                 <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
+                </button>
+                <button class="uncomment-icon" mat-icon-button (click)="unCommentCss()" matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentCss()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>
                 <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
               </div>
@@ -196,6 +221,12 @@
               <div class="title">
                 <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
+                </button><button class="uncomment-icon" mat-icon-button (click)="unCommentHtml()"
+                  matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentHtml()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>HTML
               </div>
               <div #html class="code">
@@ -210,6 +241,12 @@
                 </button>
                 <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
+                </button>
+                <button class="uncomment-icon" mat-icon-button (click)="unCommentCss()" matTooltip="Uncomment">
+                  <mat-icon>code</mat-icon>
+                </button>
+                <button class="comment-icon" mat-icon-button (click)="commentCss()" matTooltip="Comment">
+                  <mat-icon>settings_ethernet</mat-icon>
                 </button>
                 <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
               </div>

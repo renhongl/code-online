@@ -8,7 +8,7 @@ export class HomeService {
 
   constructor(private http: HttpClient) { }
 
-  getPens(filter: string) {
+  getPens() {
     return this.http.get('/code-online/assets/data/pens.json');
   }
 }

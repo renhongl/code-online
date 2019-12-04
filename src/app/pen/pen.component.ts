@@ -9,6 +9,8 @@ import 'codemirror/addon/lint/lint.css';
 
 import 'codemirror/addon/edit/closebrackets.js';
 import 'codemirror/addon/edit/closetag.js';
+import 'codemirror/addon/edit/matchbrackets.js';
+
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/css/css.js';
@@ -209,6 +211,26 @@ export class PenComponent implements OnInit {
     this.jsEditor.commentRange(false, range.from, range.to);
   }
 
+  commentHtml() {
+    const range = { from: this.htmlEditor.getCursor(true), to: this.htmlEditor.getCursor(false) };
+    this.htmlEditor.commentRange(true, range.from, range.to);
+  }
+
+  unCommentHtml() {
+    const range = { from: this.htmlEditor.getCursor(true), to: this.htmlEditor.getCursor(false) };
+    this.htmlEditor.commentRange(false, range.from, range.to);
+  }
+
+  commentCss() {
+    const range = { from: this.cssEditor.getCursor(true), to: this.cssEditor.getCursor(false) };
+    this.cssEditor.commentRange(true, range.from, range.to);
+  }
+
+  unCommentCss() {
+    const range = { from: this.cssEditor.getCursor(true), to: this.cssEditor.getCursor(false) };
+    this.cssEditor.commentRange(false, range.from, range.to);
+  }
+
 
   refresh() {
     this.jsCode = this.jsEditor.getValue();
@@ -244,7 +266,11 @@ export class PenComponent implements OnInit {
       indentUnit: 2,
       tabSize: 2,
       lint: true,
+      matchBrackets: true,
     });
+    this.cssEditor.execCommand('selectAll');
+    this.formatCss();
+    this.cssEditor.execCommand('goDocStart');
   }
 
   initHtml() {
@@ -261,10 +287,14 @@ export class PenComponent implements OnInit {
       indentUnit: 2,
       tabSize: 2,
       lint: true,
+      matchBrackets: true,
     });
     emmetCodeMirror(this.htmlEditor, {
       Tab: 'emmet.expand_abbreviation_with_tab',
     });
+    this.htmlEditor.execCommand('selectAll');
+    this.formatHtml();
+    this.htmlEditor.execCommand('goDocStart');
   }
 
   initJs() {
@@ -279,8 +309,12 @@ export class PenComponent implements OnInit {
       indentUnit: 2,
       tabSize: 2,
       gutters: ['CodeMirror-lint-markers'],
-      lint: { esversion: '8' }
+      lint: { esversion: '8' },
+      matchBrackets: true,
     });
+    this.jsEditor.execCommand('selectAll');
+    this.formatJs();
+    this.jsEditor.execCommand('goDocStart');
   }
 
   removeTag(tagName) {
