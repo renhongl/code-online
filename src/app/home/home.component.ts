@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from './home.service';
 
@@ -10,35 +10,74 @@ import { HomeService } from './home.service';
 export class HomeComponent implements OnInit {
 
   list: any;
+  currPage = 0;
+  pageLimit = 6;
+  filter = '';
+  currentList: any;
+  firstPage = true;
+  lastPage = false;
 
   constructor(private router: Router, private homeSer: HomeService) { }
 
   ngOnInit() {
     document.title = 'Code Online';
-    this.homeSer.getPens().subscribe(data => {
-      this.list = data;
-      setTimeout(() => {
-        for(let i = 0; i < this.list.length; i++) {
-          this.writeDocument(i);
-        }
-      }, 2000);
-    });
+    this.initIframes('');
   }
 
-  searchPens(e) {
+  initIframes(filter) {
     this.homeSer.getPens().subscribe(data => {
       this.list = data['filter'](item => {
-        if (item['code-online-title'].toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1) {
+        if (item['code-online-title'].toLowerCase().indexOf(filter.toLowerCase()) !== -1) {
           return true;
         }
         return false;
       });
+      const from = this.currPage * this.pageLimit;
+      const temp = [...this.list];
+      if (Math.ceil(this.list.length / this.pageLimit) - 1 <= 0) {
+        this.lastPage = true;
+      }
+      this.currentList = temp.splice(from, this.pageLimit);
       setTimeout(() => {
-        for(let i = 0; i < this.list.length; i++) {
-          this.writeDocument(i);
-        }
+        this.currentList.forEach(item => this.writeDocument(item));
       }, 2000);
     });
+  }
+
+  nextPage() {
+    if (this.currPage === Math.floor(this.list.length / this.pageLimit)) {
+      return;
+    }
+    if (this.currPage === Math.floor(this.list.length / this.pageLimit) - 1) {
+      this.lastPage = true;
+    } else {
+      this.lastPage = false;
+    }
+    this.firstPage = false;
+    this.currPage += 1;
+    this.initIframes(this.filter);
+  }
+
+  prevPage() {
+    if (this.currPage === 0) {
+      return;
+    }
+    if (this.currPage === 1) {
+      this.firstPage = true;
+    } else {
+      this.firstPage = false;
+    }
+    this.lastPage = false;
+    this.currPage -= 1;
+    this.initIframes(this.filter);
+  }
+
+  searchPens(e) {
+    this.currPage = 0;
+    this.firstPage = true;
+    this.lastPage = false;
+    this.initIframes(e.target.value);
+    this.filter = e.target.value;
   }
 
   writeLinks(arr) {
@@ -62,7 +101,7 @@ export class HomeComponent implements OnInit {
     return typeMapping[mode];
   }
 
-  getContent(i) {
+  getContent(item) {
     return `
     <!DOCTYPE html>
     <html>
@@ -70,14 +109,14 @@ export class HomeComponent implements OnInit {
         <meta charset="UTF-8" />
         <title>Untitled</title>
         <style>*{margin: 0;padding: 0}body{overflow:hidden}</style>
-        ${this.writeLinks(this.list[i]['code-online-cssLib']).join(',').replace(/,/ig, '')}
-        <style>${this.list[i]['code-online-css']}</style>
+        ${this.writeLinks(item['code-online-cssLib']).join(',').replace(/,/ig, '')}
+        <style>${item['code-online-css']}</style>
       </head>
       <body>
-        ${this.list[i]['code-online-html']}
-        ${this.writeScript(this.list[i]['code-online-jsLib']).join(',').replace(/,/ig, '')}
-        <script type="${this.getType(this.list[i]['code-online-mode'])}">
-          ${this.list[i]['code-online-js']}
+        ${item['code-online-html']}
+        ${this.writeScript(item['code-online-jsLib']).join(',').replace(/,/ig, '')}
+        <script type="${this.getType(item['code-online-mode'])}">
+          ${item['code-online-js']}
         </script>
       </body>
     </html>
@@ -88,17 +127,21 @@ export class HomeComponent implements OnInit {
     window.open('https://github.com/renhongl/code-online', '_blank');
   }
 
-  writeDocument(i) {
-    const dom = document.getElementById('preview-iframe' + i);
-    if (dom) {
-      const doc = dom['contentDocument'];
-      doc.open();
-      doc.write('');
-      doc.close();
-      const content = this.getContent(i);
-      doc.open();
-      doc.write(content);
-      doc.close();
+  writeDocument(item) {
+    try {
+      const dom = document.getElementById('preview-iframe' + item.id);
+      if (dom) {
+        const doc = dom['contentDocument'];
+        doc.open();
+        doc.write('');
+        doc.close();
+        const content = this.getContent(item);
+        doc.open();
+        doc.write(content);
+        doc.close();
+      }
+    } catch (error) {
+      console.log('Write document error');
     }
   }
 
@@ -115,18 +158,24 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/pen']);
   }
 
-  openPen(i) {
-    const content = this.getContent(i);
+  openPen(id) {
+    const item = this.list.filter(ite => ite.id === id)[0];
+    const content = this.getContent(item);
     localStorage.setItem('code-online-view', content);
-    localStorage.setItem('code-online-js', this.list[i]['code-online-js']);
-    localStorage.setItem('code-online-html', this.list[i]['code-online-html']);
-    localStorage.setItem('code-online-css', this.list[i]['code-online-css']);
+    localStorage.setItem('code-online-js', item['code-online-js']);
+    localStorage.setItem('code-online-html', item['code-online-html']);
+    localStorage.setItem('code-online-css', item['code-online-css']);
 
-    localStorage.setItem('code-online-cssLib', JSON.stringify(this.list[i]['code-online-cssLib']));
-    localStorage.setItem('code-online-jsLib', JSON.stringify(this.list[i]['code-online-jsLib']));
-    localStorage.setItem('code-online-mode', this.list[i]['code-online-mode']);
-    localStorage.setItem('code-online-view-type', this.list[i]['code-online-view-type']);
-    localStorage.setItem('code-online-title', this.list[i]['code-online-title']);
+    localStorage.setItem('code-online-cssLib', JSON.stringify(item['code-online-cssLib']));
+    localStorage.setItem('code-online-jsLib', JSON.stringify(item['code-online-jsLib']));
+    localStorage.setItem('code-online-mode', item['code-online-mode']);
+    localStorage.setItem('code-online-view-type', item['code-online-view-type']);
+    localStorage.setItem('code-online-title', item['code-online-title']);
+  }
+
+  openNewTab(id) {
+    this.openPen(id);
+    window.open('/code-online#/fullScreen', '_blank');
   }
 
 }

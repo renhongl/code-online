@@ -2,8 +2,16 @@
   <div class="header">
     <img class="logo" width="20px" height="20px" src="/code-online/assets/images/logo.png" alt="" />
 
+    <span class="title">CODE ONLINE</span>
 
-    <span class="title">Code Online</span>
+    <div class="search-con">
+      <div class="search">
+        <input type="text" [value]="filter" placeholder="Search Pens" (change)="searchPens($event)" />
+      </div>
+      <div class="search-icon">
+        <mat-icon>search</mat-icon>
+      </div>
+    </div>
 
     <button mat-icon-button class="new-pen" (click)="newPen()" matTooltip="Create a New Pen">
       <mat-icon>add</mat-icon>
@@ -15,32 +23,40 @@
   </div>
 
   <div class="content">
-    <div class="example-full-width">
-      <div class="search">
-        <input type="text" placeholder="Search Pens" (change)="searchPens($event)"/>
-      </div>
-      <div class="search-icon">
-        <mat-icon>search</mat-icon>
-      </div>
-    </div>
+
     <div class="line">
-        Picked Pens
+      Picked Pens
     </div>
 
     <div class="pen-con">
-        <div class="pen-panel" *ngFor="let item of list; let i = index">
-            <a class="link" routerLink="/pen" (click)="openPen(i)" (contextmenu)="openPen(i)"></a>
-            <div class="iframe-con">
-              <iframe [id]="'preview-iframe' + i" frameborder="0" width="100%" height="100%"></iframe>
-            </div>
-            <div class="desc-con">
-              <img [src]="'/code-online/assets/images/' + item.logo" alt="" class="logo" width="40px" height="40px">
-              <span class="title">{{item['code-online-title']}}</span>
-              <span class="name">{{item.author}}</span>
-            </div>
+      <div class="pen-panel" *ngFor="let item of currentList; let i = index">
+        <a class="link" routerLink="/pen" (click)="openPen(item.id)" (contextmenu)="openPen(item.id)"></a>
+        <div class="iframe-con">
+          <iframe [id]="'preview-iframe' + item.id" frameborder="0" width="100%" height="100%"></iframe>
         </div>
+        <div class="desc-con">
+          <img [src]="'/code-online/assets/images/' + item.logo" alt="" class="logo" width="40px" height="40px">
+          <span class="title">{{item['code-online-title']}}</span>
+          <span class="name">{{item.author}}</span>
+          <button mat-icon-button class="fullscreen" (click)="openNewTab(item.id)" matTooltip="View Full Screen">
+            <mat-icon>personal_video</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
+  <div class="pagination">
+    <div class="pre" (click)="prevPage()" *ngIf="!firstPage">
+      <mat-icon>keyboard_arrow_left</mat-icon> Prev
+    </div>
+    <div class="next" (click)="nextPage()" *ngIf="!lastPage">
+      Next <mat-icon>keyboard_arrow_right</mat-icon>
+    </div>
+  </div>
+
+  <footer>
+    <span class="author">Powered by Pomelo</span>
+  </footer>
 
 </div>
