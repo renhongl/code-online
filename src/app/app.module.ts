@@ -20,7 +20,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FullScreenComponent } from './full-screen/full-screen.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HomeComponent } from './home/home.component';
-
+import { PraiseDialogComponent } from './home/praise-dialog/praise-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -36,7 +36,8 @@ const appRoutes: Routes = [
     JsDialogComponent,
     FullScreenComponent,
     CssDialogComponent,
-    HomeComponent
+    HomeComponent,
+    PraiseDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     JsDialogComponent,
-    CssDialogComponent
+    CssDialogComponent,
+    PraiseDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

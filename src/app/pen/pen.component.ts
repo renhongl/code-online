@@ -21,6 +21,7 @@ import 'codemirror/addon/dialog/dialog.js';
 import 'codemirror/addon/dialog/dialog.css';
 
 import 'codemirror/addon/search/search.js';
+// import 'codemirror/addon/search/matchesonscrollbar.js';
 import 'codemirror/addon/search/searchcursor.js';
 import 'codemirror/addon/search/match-highlighter.js';
 import 'codemirror/addon/search/jump-to-line.js';
@@ -62,6 +63,7 @@ export class PenComponent implements OnInit {
   titleWord: string;
   cssLibrary: Array<string>;
   downloadUrl: string;
+  content: string;
 
   showIframeHider = false;
   mode = 'None';
@@ -88,6 +90,9 @@ export class PenComponent implements OnInit {
     this.jsLibrary = this.getLibs('code-online-jsLib');
     this.cssLibrary = this.getLibs('code-online-cssLib');
     this.currentView = localStorage.getItem('code-online-view-type') || 'top';
+    if (this.mode === 'Babel') {
+      this.jsLibrary.unshift('https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js');
+    }
     setTimeout(() => {
       this.updateDocumentTitle();
       this.initJs();
@@ -373,7 +378,7 @@ export class PenComponent implements OnInit {
       this.doc.open();
       this.doc.write('');
       this.doc.close();
-      const content = `
+      this.content = `
         <!DOCTYPE html>
         <html>
           <head>
@@ -393,9 +398,9 @@ export class PenComponent implements OnInit {
         </html>
       `;
       this.doc.open();
-      this.doc.write(content);
+      this.doc.write(this.content);
       this.doc.close();
-      localStorage.setItem('code-online-view', content);
+      // localStorage.setItem('code-online-view', this.content);
       localStorage.setItem('code-online-js', this.jsCode);
       localStorage.setItem('code-online-html', this.htmlCode);
       localStorage.setItem('code-online-css', this.cssCode);
@@ -452,7 +457,7 @@ export class PenComponent implements OnInit {
       this.refresh();
       this.cd.detectChanges();
       localStorage.setItem('code-online-cssLib', JSON.stringify(this.cssLibrary));
-      localStorage.setItem('code-online-cssmode', this.cssMode);
+      // localStorage.setItem('code-online-cssmode', this.cssMode);
     });
   }
 
@@ -460,7 +465,7 @@ export class PenComponent implements OnInit {
     const element = document.createElement('a');
     element.setAttribute(
       'href',
-      'data:text/plain;charset=utf-8,' + encodeURIComponent(localStorage.getItem('code-online-view'))
+      'data:text/plain;charset=utf-8,' + encodeURIComponent(this.content)
     );
     element.setAttribute('download', this.titleWord + '.html');
     element.style.display = 'none';

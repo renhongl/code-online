@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from './home.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PraiseDialogComponent } from './praise-dialog/praise-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,7 @@ export class HomeComponent implements OnInit {
   firstPage = true;
   lastPage = false;
 
-  constructor(private router: Router, private homeSer: HomeService) { }
+  constructor(private router: Router, private homeSer: HomeService, private dialog: MatDialog) { }
 
   ngOnInit() {
     document.title = 'Code Online';
@@ -108,7 +110,7 @@ export class HomeComponent implements OnInit {
       <head>
         <meta charset="UTF-8" />
         <title>Untitled</title>
-        <style>*{margin: 0;padding: 0}body{overflow:hidden}</style>
+        <style>*{margin: 0;padding: 0}body{overflow:hidden}body{transform: scale(0.8, 0.8);display:flex;justify-content:center;align-items:center;}</style>
         ${this.writeLinks(item['code-online-cssLib']).join(',').replace(/,/ig, '')}
         <style>${item['code-online-css']}</style>
       </head>
@@ -132,6 +134,7 @@ export class HomeComponent implements OnInit {
       const dom = document.getElementById('preview-iframe' + item.id);
       if (dom) {
         const doc = dom['contentDocument'];
+        // dom.setAttribute('style', '-webkit-transform:scale(0.8);-moz-transform-scale(0.8);');
         doc.open();
         doc.write('');
         doc.close();
@@ -146,7 +149,7 @@ export class HomeComponent implements OnInit {
   }
 
   newPen() {
-    localStorage.setItem('code-online-view', '');
+    // localStorage.setItem('code-online-view', '');
     localStorage.setItem('code-online-js', '');
     localStorage.setItem('code-online-html', '');
     localStorage.setItem('code-online-css', '');
@@ -160,8 +163,8 @@ export class HomeComponent implements OnInit {
 
   openPen(id) {
     const item = this.list.filter(ite => ite.id === id)[0];
-    const content = this.getContent(item);
-    localStorage.setItem('code-online-view', content);
+    // const content = this.getContent(item);
+    // localStorage.setItem('code-online-view', content);
     localStorage.setItem('code-online-js', item['code-online-js']);
     localStorage.setItem('code-online-html', item['code-online-html']);
     localStorage.setItem('code-online-css', item['code-online-css']);
@@ -176,6 +179,17 @@ export class HomeComponent implements OnInit {
   openNewTab(id) {
     this.openPen(id);
     window.open('/code-online#/fullScreen', '_blank');
+  }
+
+  showPraise() {
+    const dialogRef = this.dialog.open(PraiseDialogComponent, {
+      width: '310px',
+      height: '350px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
   }
 
 }
