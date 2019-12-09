@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
       <head>
         <meta charset="UTF-8" />
         <title>Untitled</title>
-        <style>*{margin: 0;padding: 0}body{overflow:hidden}body{transform: scale(0.8, 0.8);display:flex;justify-content:center;align-items:center;}</style>
+        <style>*{margin: 0;padding: 0}body{overflow:hidden}html{display:flex;justify-content:center;align-items:center;height:100%;width:100%}body{transform: scale(0.3, 0.3);}</style>
         ${this.writeLinks(item['code-online-cssLib']).join(',').replace(/,/ig, '')}
         <style>${item['code-online-css']}</style>
       </head>
