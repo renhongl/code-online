@@ -3,6 +3,15 @@
   min-height: 100%;
   background: #272822;
 
+  @media only screen and (max-width: 740px) {
+    footer>span {
+      width: 100% !important;
+      border-right: none !important;
+      text-align: left;
+      padding-left: 20px;
+    }
+  }
+
   footer {
     height: 100px;
     width: 100%;
@@ -12,11 +21,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 
     &>span {
-      border-right: 2px solid rgb(199, 199, 199);
-      margin-right: 5px;
-      padding-right: 5px;
+      border-right: 1px solid rgb(199, 199, 199);
+      margin-right: 10px;
+      padding-right: 10px;
     }
 
     &>span:last-child {
@@ -102,7 +112,7 @@
       border-bottom: 4px solid #3f51b5;
       width: 100%;
       font-size: 35px;
-      font-family: cursive;
+      font-family: monospace;
       font-weight: bold;
       color: #fff;
       margin-top: 20px;
@@ -129,6 +139,13 @@
         border-radius: 5px;
         position: relative;
         overflow: hidden;
+        box-shadow: 0px 0px 10px #0000005c;
+        transition: all .5s;
+
+        &:hover{
+          transform: scale(1.05);
+          box-shadow: 0px 0px 10px #0000005c;
+        }
 
         a.link {
           position: absolute;
