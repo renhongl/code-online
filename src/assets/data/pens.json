@@ -40,7 +40,7 @@
     },
     {
         "id": "0004",
-        "code-online-title": "网页版贪吃蛇",
+        "code-online-title": "贪吃蛇",
         "code-online-css": ".canvas{  width: 600px;  height: 600px;  border: 1px solid grey;  display: block;  margin: 0 auto;  background: #1d1f20;}",
         "code-online-view-type": "top",
         "code-online-jsLib": [],
@@ -53,7 +53,7 @@
     },
     {
         "id": "0005",
-        "code-online-title": "JS自制放大镜",
+        "code-online-title": "放大镜",
         "code-online-css": ".wrap{  width: 600px;  height: 300px;  margin: 0 auto;  position: relative;}.small-container{  width: 300px;  height: 300px;  background: grey;  position: relative;  opacity: 1;}.bigger-container{  width: 300px;  height: 300px;  position: absolute;  right: -10px;  top: 0;  overflow: hidden;  background-image: url(http://pic1.win4000.com/wallpaper/0/54801a825e46e.jpg);  background-repeat: no-repeat;  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);}.overlay{  position: absolute;  width: 40px;  height: 40px;  z-index: 1;  background: #fff;  opacity: 0.7;  pointer-events: none;}",
         "code-online-view-type": "top",
         "code-online-jsLib": [],
@@ -66,7 +66,7 @@
     },
     {
         "id": "0006",
-        "code-online-title": "Echarts例子",
+        "code-online-title": "Echarts Download As PDF",
         "code-online-css": "#wrap{  width: 600px;  height: 500px;  margin: 0 auto;}",
         "code-online-view-type": "top",
         "code-online-jsLib": ["https://cdnjs.cloudflare.com/ajax/libs/echarts/3.8.5/echarts.min.js"],
@@ -74,12 +74,12 @@
         "code-online-cssLib": [],
         "author": "Xiao Jie Jie",
         "logo": "u5.png",
-        "code-online-js": "let firstChart = echarts.init(document.getElementById('wrap'));let option = {  title: {    text: 'ECharts Example'  },  tooltip: {      },  legend: {    data: ['销量', '价格']  },  xAxis: {    data: ['衬衫', '羊毛衫', '裤子', '高跟鞋', '袜子', '衣服']  },  yAxis: {      },  series: [    {      name: '销量',      type: 'bar',      data: [5, 20, 36, 12, 10, 20]    },{      name: '价格',      type: 'line',      data: [35, 160, 79, 230, 15, 65]    }  ]};firstChart.setOption(option);",
-        "code-online-html": "<div class=\"\" id=\"wrap\"></div>"
+        "code-online-js": "let firstChart=echarts.init(document.getElementById(\"wrap\")),option={title:{text:\"ECharts Example\"},tooltip:{},legend:{data:[\"销量\",\"价格\"]},xAxis:{data:[\"衬衫\",\"羊毛衫\",\"裤子\",\"高跟鞋\",\"袜子\",\"衣服\"]},yAxis:{},series:[{name:\"销量\",type:\"bar\",data:[5,20,36,12,10,20]},{name:\"价格\",type:\"line\",data:[35,160,79,230,15,65]}]};firstChart.setOption(option),document.querySelector(\"button\").onclick=function(){html2pdf().set({margin:[.5,.5,.5,.5],filename:\"test.pdf\",image:{type:\"jpeg\",quality:.98},pagebreak:{mode:[\"avoid-all\"]},html2canvas:{dpi:192,letterRendering:!0,useCORS:!0,imageTimeout:0},useCORS:!0,jsPDF:{unit:\"in\",format:\"letter\",orientation:\"portrait\"}}).from(document.getElementById(\"wrap\")).toPdf().save()};",
+        "code-online-html": "<div id=\"wrap\"></div><button>Download</button>"
     },
     {
         "id": "0007",
-        "code-online-title": "JS日历",
+        "code-online-title": "日历",
         "code-online-css": "html,body{width:100%;height:100%}.mr-date-picker-background{width:100%;height:100%;background:black;opacity:1;background-color:rgba(0,0,0,0.54);position:fixed;left:0;top:0;z-index:100}.mr-date-picker{width:400px;height:300px;background:#fff;position:absolute;overflow:hidden;left:50%;top:50%;transform:translate(-50%,-50%)}.mr-date-picker-day{display:inline-block;width:30px;height:30px;border-radius:50%;transition:all .5s;margin:2px;font-size:12px}.mr-date-picker-day:hover{background:#e85b74ad;cursor:pointer;color:#fff}.mr-date-picker-week{display:inline-block;width:30px;height:30px;font-size:12px;line-height:30px;text-align:center;margin:2px;color:grey}.mr-date-picker-value{width:30%;float:left;height:100%;background:#e85b74;transition:all .5s}.mr-date-picker-right{width:100%;float:right;margin:0;padding:0;height:30px;line-height:30px;text-align:center;transition:all 1s}.mr-date-picker-right-day{transition:all .5s}.mr-date-picker-day-container{overflow:hidden;width:70%;float:right;height:calc(100% - 110px)}.mr-date-picker-footer{width:70%;float:left;height:40px;position:relative}.mr-date-picker-right-week{width:70% !important}.mr-date-picker-ok-btn{position:absolute;right:26px;top:7px;color:#e85b74;font-weight:bold;font-size:14px;cursor:pointer;padding:5px 10px;text-align:center;border-radius:3px}.mr-date-picker-ok-btn:hover{background:#c5c0c0a3}.mr-date-picker-header{width:70%;float:right;margin:0;padding:0;height:40px;line-height:40px;text-align:center;position:relative}.mr-date-picker-day-empty{display:inline-block;width:30px;height:30px;color:transparent;margin:2px}.mr-date-picker-year-p{color:#ffffff9c;font-size:20px;margin:0;padding-left:20px;padding-top:20px;transition:all .5s}.mr-date-picker-month-p{color:#fff;font-size:30px;padding-left:18px;padding-top:10px;margin:0;transition:all .5s}.mr-date-picker-day-p{color:#fff;font-size:50px;padding-left:14px;margin:0;transition:all .5s}.mr-date-picker-day-active{background:#e85b74 !important;color:#fff}.mr-date-picker-month-before{border:0;position:absolute;left:30px;top:6px;background:0;font-size:18px;font-weight:bold;outline:0;cursor:pointer;color:grey}.mr-date-picker-month-after{border:0;position:absolute;right:27px;top:6px;background:0;font-size:18px;font-weight:bold;outline:0;cursor:pointer;color:grey}.mr-date-picker-month-after:hover{color:#e85b74}.mr-date-picker-month-before:hover{color:#e85b74}.mr-date-picker-month-after::before{content:\"\\276f\"}.mr-date-picker-month-before::before{content:\"\\276e\"}.mr-date-picker .click{content:'';left:50%;top:50%;display:inline-block;width:10px;height:10px;background:#dddada;position:absolute;transform:translate(-50%,-50%);animation:mr-tab-click .5s;animation-fill-mode:forwards;border-radius:50%;opacity:.9;pointer-events:none;z-index:10}@keyframes mr-tab-click{to{width:100px;height:100px;opacity:0}}",
         "code-online-view-type": "top",
         "code-online-jsLib": [],
@@ -102,5 +102,18 @@
         "logo": "u2.png",
         "code-online-js": "class Carousel{constructor(t){this.className=\"mr-carousel\",this.options=t,this._init()}_init(){this._render()}_render(){this.options.container.setAttribute(\"class\",this.className),this.items=this.options.container.querySelectorAll(\"div\"),this.center=0,this._setLayer(this.center),this._loop(),this._createButton()}_loop(){this.timer=setInterval(function(){this.center<this.items.length-1?this.center++:this.center=0,this._setLayer(this.center)}.bind(this),3e3)}_createButton(){let t=document.createElement(\"span\"),e=document.createElement(\"span\");t.setAttribute(\"class\",\"mr-carousel-btn-before\"),t.innerText=\"<\",e.setAttribute(\"class\",\"mr-carousel-btn-after\"),e.innerText=\">\",this.options.container.appendChild(t),this.options.container.appendChild(e),this.reloopTimer,this._clickBefore(t),this._clickAfter(e)}_clickBefore(t){t.onclick=function(){clearInterval(this.timer),clearTimeout(this.reloopTimer),this.reloopTimer=setTimeout(function(){this._loop()}.bind(this),500),this.center<=0?this.center=this.items.length-1:this.center--,this._setLayer(this.center)}.bind(this)}_clickAfter(t){t.onclick=function(){clearInterval(this.timer),clearTimeout(this.reloopTimer),this.reloopTimer=setTimeout(function(){this._loop()}.bind(this),500),this.center<this.items.length-1?this.center++:this.center=0,console.log(this.center),this._setLayer(this.center)}.bind(this)}_setLayer(t){let e=t-1<0?this.items.length-1:t-1,s=t+1>this.items.length-1?0:t+1;Array.prototype.slice.call(this.items).forEach((i,r)=>{r===e?(i.style.zIndex=0,i.setAttribute(\"class\",\"mr-carousel-item mr-carousel-item-before\")):r===t?(i.style.zIndex=20,i.setAttribute(\"class\",\"mr-carousel-item mr-carousel-item-center\")):r===s?(i.style.zIndex=0,i.setAttribute(\"class\",\"mr-carousel-item mr-carousel-item-after\")):(i.style.zIndex=-1,setTimeout(function(){i.setAttribute(\"class\",\"mr-carousel-item\")},500))})}}let carousel=document.querySelector(\".test\");new Carousel({container:carousel});",
         "code-online-html": "<div class=\"wrap\"><div class=\"test\"><div style=\"background: #00B300;\">div1</div><div style=\"background: rgb(231, 174, 15);\">div2</div><div style=\"background: #177DE6;\">div3</div><div style=\"background: #e85b74;\">div4</div><div style=\"background: rgb(183, 26, 232);\">div5</div></div></div>"
+    },
+    {
+        "id": "0009",
+        "code-online-title": "3D例子",
+        "code-online-css": ".wrap{width:100%;height:400px;-webkit-perspective:2000px;-webkit-perspective-origin:center -100%;padding:100px;background:black}img{width:100%;height:100%}.view{width:300px;height:300px;margin:0 auto;position:relative;transform-style:preserve-3d;transform-origin:150px 150px}.view:hover{animation:rotate 5s linear 0s infinite}.view>.img{opacity:.9;width:200px;height:200px;position:absolute}.view>.out{opacity:.5;width:300px;height:300px;position:absolute}.left{background:blue;transform:rotateY(90deg) translateY(50px) translateZ(-50px)}.right{background:green;transform:rotateY(90deg) translateZ(150px) translateY(50px)}.top{background:red;transform:rotateX(90deg) translateZ(50px) translateX(50px)}.bottom{background:black;transform:rotateX(90deg) translateZ(-150px) translateX(50px)}.front{background:yellow;transform:rotateX(0) translateZ(100px) translateX(50px) translateY(50px)}.back{background:yellow;transform:rotateX(0) translateZ(-100px) translateX(50px) translateY(50px)}@keyframes rotate{0%{transform:rotate3d(0,1,0,0)}100%{transform:rotate3d(0,1,0,360deg)}}.out-left{background:white;transform:rotateY(90deg) translateZ(-150px)}.out-right{background:white;transform:rotateY(90deg) translateZ(150px)}.out-top{background:white;transform:rotateX(90deg) translateZ(150px)}.out-bottom{background:white;transform:rotateX(90deg) translateZ(-150px)}.out-front{background:white;transform:rotateX(0) translateZ(150px)}.out-back{background:white;transform:rotateX(0) translateZ(-150px)}",
+        "code-online-view-type": "top",
+        "code-online-jsLib": [],
+        "code-online-mode": "None",
+        "code-online-cssLib": [],
+        "author": "Mushroom",
+        "logo": "u5.png",
+        "code-online-js": "",
+        "code-online-html": "<div class=\"wrap\"> <div class=\"view\"> <div class=\"left img\"><img src=\"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1497502671&di=6d65c12d02472979bd3421afffdf0472&src=http://img4q.duitang.com/uploads/item/201312/05/20131205172435_Sesdy.jpeg\" alt=\"\"/></div><div class=\"right img\"><img src=\"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497512757137&di=9bcab71c8b9b830546e73d075b45f2b9&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201312%2F05%2F20131205172447_Yt3ew.jpeg\" alt=\"\"/></div><div class=\"top img\"><img src=\"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497512757137&di=fb4cfe932cad3d169772ba52a63d9e9e&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F130622%2F240373-13062210230694.jpg\" alt=\"\"/></div><div class=\"bottom img\"><img src=\"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497512757137&di=56d63d5f11919be1891233d9391dad6d&imgtype=0&src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201312%2F05%2F20131205172437_NzmyY.thumb.600_0.jpeg\" alt=\"\"/></div><div class=\"front img\"><img src=\"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497512757137&di=c5db31bc20d1ce0e65f5e3b2f81b0a7f&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F140629%2F240510-14062ZG55937.jpg\" alt=\"\"/></div><div class=\"back img\"><img src=\"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497512757137&di=40679b362beb06ada606c8e282768195&imgtype=0&src=http%3A%2F%2Fimg4.duitang.com%2Fuploads%2Fitem%2F201312%2F05%2F20131205172436_UtdCZ.jpeg\" alt=\"\"/></div><div class=\"out-left out\"></div><div class=\"out-right out\"></div><div class=\"out-top out\"></div><div class=\"out-bottom out\"></div><div class=\"out-front out\"></div><div class=\"out-back out\"></div></div></div>"
     }
 ]
