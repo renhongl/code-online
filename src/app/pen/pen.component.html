@@ -10,9 +10,25 @@
       <mat-icon>edit</mat-icon>
     </button>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="change-view" matTooltip="Change View">
-      <mat-icon>remove_red_eye</mat-icon>
+    <button mat-icon-button class="help" (click)="openHelp()" matTooltip="Hot Key Help">
+      <mat-icon>help_outline</mat-icon>
     </button>
+
+    <button mat-icon-button class="change-view" matTooltip="Change View" [matMenuTriggerFor]="menu" *ngIf="currentView === 'top'">
+      <mat-icon class="top">table_chart</mat-icon>
+    </button>
+
+    <button mat-icon-button class="change-view" matTooltip="Change View" [matMenuTriggerFor]="menu" *ngIf="currentView === 'left'">
+      <mat-icon class="left">table_chart</mat-icon>
+    </button>
+
+    <button mat-icon-button class="change-view" matTooltip="Change View" [matMenuTriggerFor]="menu" *ngIf="currentView === 'right'">
+      <mat-icon class="right">table_chart</mat-icon>
+    </button>
+
+    <!-- <button mat-icon-button [matMenuTriggerFor]="menu" class="change-view" matTooltip="Change View">
+      <mat-icon>remove_red_eye</mat-icon>
+    </button> -->
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="changeView('top')" [disabled]="currentView === 'top'">
         <mat-icon class="top">table_chart</mat-icon>
@@ -48,7 +64,7 @@
           <as-split-area size="33">
             <div class="code-con">
               <div class="title">
-                <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button><button class="uncomment-icon" mat-icon-button (click)="unCommentHtml()"
                   matTooltip="Uncomment">
@@ -56,7 +72,8 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentHtml()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>HTML</div>
+                </button> -->
+                HTML</div>
               <div #html class="code">
               </div>
             </div>
@@ -67,7 +84,7 @@
                 <button mat-icon-button (click)="openCssDialog()">
                   <mat-icon>settings</mat-icon>
                 </button>
-                <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button>
                 <button class="uncomment-icon" mat-icon-button (click)="unCommentCss()" matTooltip="Uncomment">
@@ -75,7 +92,7 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentCss()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>
+                </button> -->
                 <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
               </div>
               <div #css class="code">
@@ -88,7 +105,7 @@
                 <button mat-icon-button (click)="openJSDialog()">
                   <mat-icon>settings</mat-icon>
                 </button>
-                <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button>
                 <button class="uncomment-icon" mat-icon-button (click)="unCommentJs()" matTooltip="Uncomment">
@@ -96,7 +113,7 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentJs()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>
+                </button> -->
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
               <div #js class="code js-code">
@@ -132,7 +149,7 @@
           <as-split-area size="33">
             <div class="code-con">
               <div class="title">
-                <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button><button class="uncomment-icon" mat-icon-button (click)="unCommentHtml()"
                   matTooltip="Uncomment">
@@ -140,7 +157,8 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentHtml()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>HTML
+                </button> -->
+                HTML
               </div>
               <div #html class="code">
               </div>
@@ -152,7 +170,7 @@
                 <button mat-icon-button (click)="openCssDialog()">
                   <mat-icon>settings</mat-icon>
                 </button>
-                <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button>
                 <button class="uncomment-icon" mat-icon-button (click)="unCommentCss()" matTooltip="Uncomment">
@@ -160,7 +178,7 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentCss()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>
+                </button> -->
                 <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
               </div>
               <div #css class="code">
@@ -173,7 +191,7 @@
                 <button mat-icon-button (click)="openJSDialog()">
                   <mat-icon>settings</mat-icon>
                 </button>
-                <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button>
                 <button class="uncomment-icon" mat-icon-button (click)="unCommentJs()" matTooltip="Uncomment">
@@ -181,7 +199,7 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentJs()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>
+                </button> -->
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
               <div #js class="code js-code">
@@ -243,7 +261,7 @@
           <as-split-area size="33">
             <div class="code-con">
               <div class="title">
-                <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatHtml()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button><button class="uncomment-icon" mat-icon-button (click)="unCommentHtml()"
                   matTooltip="Uncomment">
@@ -251,7 +269,8 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentHtml()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>HTML
+                </button> -->
+                HTML
               </div>
               <div #html class="code">
               </div>
@@ -263,7 +282,7 @@
                 <button mat-icon-button (click)="openCssDialog()">
                   <mat-icon>settings</mat-icon>
                 </button>
-                <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatCss()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button>
                 <button class="uncomment-icon" mat-icon-button (click)="unCommentCss()" matTooltip="Uncomment">
@@ -271,7 +290,7 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentCss()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>
+                </button> -->
                 <span #cssTitle>CSS <span class="js-title">{{cssMode !== 'None' ? ' ('+cssMode+')' : ''}}</span></span>
               </div>
               <div #css class="code">
@@ -284,7 +303,7 @@
                 <button mat-icon-button (click)="openJSDialog()">
                   <mat-icon>settings</mat-icon>
                 </button>
-                <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
+                <!-- <button class="format-icon" mat-icon-button (click)="formatJs()" matTooltip="Format">
                   <mat-icon>format_line_spacing</mat-icon>
                 </button>
                 <button class="uncomment-icon" mat-icon-button (click)="unCommentJs()" matTooltip="Uncomment">
@@ -292,7 +311,7 @@
                 </button>
                 <button class="comment-icon" mat-icon-button (click)="commentJs()" matTooltip="Comment">
                   <mat-icon>settings_ethernet</mat-icon>
-                </button>
+                </button> -->
                 <span #jsTitle>JS <span class="js-title">{{mode === 'Babel' ? ' (Babel)' : ''}}</span></span>
               </div>
               <div #js class="code js-code">

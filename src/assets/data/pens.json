@@ -69,7 +69,7 @@
         "code-online-title": "Echarts Download As PDF",
         "code-online-css": "#wrap{  width: 600px;  height: 500px;  margin: 0 auto;}",
         "code-online-view-type": "top",
-        "code-online-jsLib": ["https://cdnjs.cloudflare.com/ajax/libs/echarts/3.8.5/echarts.min.js"],
+        "code-online-jsLib": ["https://cdnjs.cloudflare.com/ajax/libs/echarts/3.8.5/echarts.min.js", "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"],
         "code-online-mode": "Babel",
         "code-online-cssLib": [],
         "author": "Xiao Jie Jie",

@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { JsDialogComponent } from './js-dialog/js-dialog.component';
 import { CssDialogComponent } from './css-dialog/css-dialog.component';
 
+import { HelpDialogComponent } from './help-dialog/help-dialog.component';
+
 import 'codemirror/addon/lint/lint.css';
 
 import 'codemirror/addon/edit/closebrackets.js';
@@ -280,6 +282,17 @@ export class PenComponent implements OnInit {
     this.cssEditor.execCommand('selectAll');
     this.formatCss();
     this.cssEditor.execCommand('goDocStart');
+    this.cssEditor.setOption('extraKeys', {
+      'Ctrl-Alt-F': () => {
+        this.formatCss();
+      },
+      'Ctrl-/': () => {
+        this.commentCss();
+      },
+      'Ctrl-Alt-/': () => {
+        this.unCommentCss();
+      }
+    });
   }
 
   initHtml() {
@@ -304,6 +317,17 @@ export class PenComponent implements OnInit {
     this.htmlEditor.execCommand('selectAll');
     this.formatHtml();
     this.htmlEditor.execCommand('goDocStart');
+    this.htmlEditor.setOption('extraKeys', {
+      'Ctrl-Alt-F': () => {
+        this.formatHtml();
+      },
+      'Ctrl-/': () => {
+        this.commentHtml();
+      },
+      'Ctrl-Alt-/': () => {
+        this.unCommentHtml();
+      }
+    });
   }
 
   initJs() {
@@ -324,6 +348,17 @@ export class PenComponent implements OnInit {
     this.jsEditor.execCommand('selectAll');
     this.formatJs();
     this.jsEditor.execCommand('goDocStart');
+    this.jsEditor.setOption('extraKeys', {
+      'Ctrl-Alt-F': () => {
+        this.formatJs();
+      },
+      'Ctrl-/': () => {
+        this.commentJs();
+      },
+      'Ctrl-Alt-/': () => {
+        this.unCommentJs();
+      }
+    });
   }
 
   removeTag(tagName) {
@@ -367,6 +402,13 @@ export class PenComponent implements OnInit {
   writeLinks() {
     return this.cssLibrary.map(item => {
       return `<link href="${item}" rel="stylesheet"></link>`;
+    });
+  }
+
+  openHelp() {
+    this.dialog.open(HelpDialogComponent, {
+      width: '350px',
+      height: '350px',
     });
   }
 
